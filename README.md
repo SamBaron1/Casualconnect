@@ -4,20 +4,20 @@ CasualConnect is a web-based platform that connects daily workers with employers
 
 ## 🚀 Features
 
-- 🔍 **Employer Search & Filtering**
+- 🔍 **JobSearch & Filtering**
 - 📌 **Address-Based Job Tracking**
-- 📅 **Automated Scheduling**
-- 🔔 **Push Notifications (Firebase Cloud Messaging)**
+- 📅 **Automated Scheduling & NewsLetter**
+- 🔔 **Push Notifications (Websockets)**
 - 🛡️ **Secure Authentication (JWT)**
 - ⭐ **Employer Rating & Reviews**
-- 📩 **Dynamic Email Notifications (Nodemailer)**
+
 
 ## ⚙️ Tech Stack
 
 - **Frontend:** React.js,JSX & CSS
 - **Backend:** Node.js, Express.js, Sequelize (MySQL)
 - **Authentication:** JWT
-- **Real-time Notifications:** Firebase Cloud Messaging (FCM)
+- **Real-time Notifications:** websockets
 - **Database:** MySQL
 
 ## 📦 Installation

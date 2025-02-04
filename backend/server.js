@@ -6,15 +6,11 @@ const { sequelize } = require("./models");
 const indexRouter = require("./routes/index");
 const { initializeSocket, sendNotification } = require("./config/socket");
 const reviewRoutes = require("./routes/reviewRoutes");
-const notificationsRoutes = require("./routes/notifications");
-const path = require('path');
+
+
 
 const app = express();
 
-app.use('/firebase-messaging-sw.js', (req, res) => {
-  res.type('application/javascript');
-  res.sendFile(path.join(__dirname, 'firebase-messaging-sw.js'));
-});
 
 // Enable CORS for frontend
 app.use(
@@ -29,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/reviews", reviewRoutes);
-app.use("/api", notificationsRoutes);
+
 
 // Create an HTTP server
 const server = http.createServer(app);
