@@ -1,0 +1,114 @@
+/* Base styles */
+.employer-ratings-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.employer-ratings-container h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.employer-ratings-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: 300px; /* Fixed height for the scrollable container */
+  overflow-y: scroll; /* Enable vertical scrolling */
+  scroll-snap-type: y mandatory; /* Snap scrolling to one item at a time */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.employer-ratings-container li {
+  scroll-snap-align: start; /* Snap each item to the top */
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  min-height: 280px; /* Minimal height for each item */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.employer-ratings-container li:last-child {
+  border-bottom: none; /* Remove border for the last item */
+}
+
+.employer-ratings-container li strong {
+  font-size: 18px;
+  color: #0073e6;
+}
+
+.employer-ratings-container li p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.employer-ratings-container li small {
+  font-size: 14px;
+  color: #888;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .employer-ratings-container {
+    padding: 10px;
+  }
+
+  .employer-ratings-container h3 {
+    font-size: 20px;
+  }
+
+  .employer-ratings-container ul {
+    height: 250px; /* Adjust height for smaller screens */
+  }
+
+  .employer-ratings-container li {
+    min-height: 230px; /* Adjust minimal height for smaller screens */
+    padding: 10px;
+  }
+
+  .employer-ratings-container li strong {
+    font-size: 16px;
+  }
+
+  .employer-ratings-container li p {
+    font-size: 14px;
+  }
+
+  .employer-ratings-container li small {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .employer-ratings-container h3 {
+    font-size: 18px;
+  }
+
+  .employer-ratings-container ul {
+    height: 200px; /* Adjust height for mobile screens */
+  }
+
+  .employer-ratings-container li {
+    min-height: 180px; /* Adjust minimal height for mobile screens */
+  }
+
+  .employer-ratings-container li strong {
+    font-size: 14px;
+  }
+
+  .employer-ratings-container li p {
+    font-size: 12px;
+  }
+
+  .employer-ratings-container li small {
+    font-size: 10px;
+  }
+}

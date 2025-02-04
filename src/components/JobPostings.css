@@ -1,0 +1,185 @@
+/* Main Container */
+.job-listings-container {
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Title */
+.job-listings-container h2 {
+  text-align: center;
+  margin-bottom: 15px;
+ 
+}
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background: #f0e9e9;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+}
+
+.search-icon {
+  color: #555;
+  font-size: 18px;
+  cursor: pointer;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pagination button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+/* Live Job Notification */
+.live-job-update {
+  background: #fffae6;
+  border-left: 5px solid #ffc107;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Job Listings Scrollable */
+.job-listings {
+  max-height: 400px; /* Set scrollable height */
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Scrollbar Styling */
+.job-listings::-webkit-scrollbar {
+  width: 6px;
+}
+
+.job-listings::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.job-listings::-webkit-scrollbar-track {
+  background: #f9f9f9;
+}
+
+/* Individual Job Card */
+.job-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.job-card:hover {
+ 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Job Info */
+.job-card h3 {
+  margin-bottom: 5px;
+  color: #007bff;
+}
+
+.job-card p {
+  margin: 3px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Buttons */
+.job-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.apply {
+  background: #28a745;
+  color: white;
+}
+
+.apply:hover {
+  background: #218838;
+}
+
+.save {
+  background: #ffc107;
+  color: black;
+}
+
+.save:hover {
+  background: #e0a800;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+  .job-listings-container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .job-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

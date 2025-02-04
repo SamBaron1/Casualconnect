@@ -1,0 +1,121 @@
+.applications {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.applications h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.application-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.job-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.job-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.job-description,
+.jobseeker-name,
+.job-status {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.status {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  color: #ffc107;
+}
+
+.status.accepted {
+  color: #28a745;
+}
+
+.status.rejected {
+  color: #dc3545;
+}
+
+.application-actions {
+  display: flex;
+  gap: 10px;
+}
+
+button.btn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button.btn.reject {
+  background-color: #dc3545;
+}
+
+button.btn:hover {
+  opacity: 0.9;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pagination button {
+  padding: 8px 15px;
+  margin: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .applications {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .job-title {
+    font-size: 18px;
+  }
+
+  .job-description,
+  .jobseeker-name,
+  .job-status {
+    font-size: 14px;
+  }
+
+  button.btn {
+    padding: 6px 12px;
+  }
+}

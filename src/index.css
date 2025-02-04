@@ -1,0 +1,24 @@
+/* Reset some default browser styles */
+body, h1, h2, h3, p, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Global button styles */
+button {
+  cursor: pointer;
+  border: none;
+  padding: 10px 15px;
+}

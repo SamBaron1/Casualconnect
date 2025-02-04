@@ -1,0 +1,122 @@
+/* General Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #4a8fbd;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* App Container */
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Main Content */
+main {
+  flex: 1;
+  padding: 10px;
+  background-image: url('/public/background8.jpeg');
+  background-size: cover; /* Ensure the image covers the whole background */
+  background-position: center; /* Center the image */
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Footer.css */
+
+/* Footer Container */
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  margin-top: auto; /* Push footer to the bottom */
+}
+
+/* Footer Content */
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Footer Text */
+.footer p {
+  margin: 0;
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* Footer Contact Information */
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.footer-contact a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+
+/* Job Postings Section */
+.tafutakazi {
+  margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: flex;
+    align-items: flex-start;
+  }
+
+  .navbar button {
+    margin: 5px 0;
+  }
+
+  main {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+  .footer {
+    padding: 15px;
+  }
+
+  .footer-content {
+    gap: 8px;
+  }
+
+  .footer p {
+    font-size: 12px;
+  }
+
+  .footer-contact {
+    gap: 3px;
+  }
+}
+

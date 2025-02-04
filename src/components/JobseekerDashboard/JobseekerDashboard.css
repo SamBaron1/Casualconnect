@@ -1,0 +1,174 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* Top Section */
+.top-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Middle Section */
+.middle-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* CV Upgrade Section */
+.cv-upgrade-section {
+  text-align: center;
+  padding: 20px;
+  background-color: #c3c4e2;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cv-upgrade-section h1 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.upgrade-btn {
+  background-color: #0479f7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.upgrade-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Footer */
+.dashboard-footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 7px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.dashboard-footer .btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.dashboard-footer .btn:hover {
+  background-color: #0056b3;
+}
+
+.dashboard-footer .logout {
+  background-color: #dc3545;
+}
+
+.dashboard-footer .logout:hover {
+  background-color: #c82333;
+}
+
+/* Modals */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.help-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.help-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.help-modal .close-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+}
+
+.help-modal .close-btn:hover {
+  background-color: #c82333;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .cv-upgrade-section h1 {
+    font-size: 1.2rem;
+  }
+
+  .upgrade-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .dashboard-footer .btn {
+    padding: 8px 15px;
+    font-size: 0.7rem;
+  }
+}

@@ -1,0 +1,142 @@
+import React, { useState } from "react";
+import axios from "axios";
+import "./PostJob.css";
+
+const capitalize = (text) => {
+  if (typeof text !== 'string') return '';
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+};
+
+function PostJob({ onClose }) {
+  const userId = localStorage.getItem("userId"); // Assume userId is stored after login
+  console.log('userId:', userId); // Debug log
+  const [job, setJob] = useState({
+    title: "",
+    description: "",
+    location: "",
+    salary: "",
+    jobType: "",
+    requirements: "",
+    benefits: "",
+    employer_id: userId, // Include employerId in the job object
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setJob((prevJob) => ({
+      ...prevJob,
+      [name]: name === 'jobType' ? value : capitalize(value) // Avoid capitalizing jobType
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const jobData = {
+        ...job,
+        employer_id: userId, // Set employerId correctly
+      };
+      console.log('Posting job:', jobData); // Debugging line
+      await axios.post("http://localhost:5000/api/jobs", jobData);
+      alert("Job posted successfully!");
+      setJob({
+        title: "",
+        description: "",
+        location: "",
+        salary: "",
+        jobType: "",
+        requirements: "",
+        benefits: "",
+        employer_id: userId, // Reset employerId
+      });
+      onClose(); // Close the form modal
+    } catch (error) {
+      console.error("Error posting job:", error);
+    }
+  };
+  
+  return (
+    <div className="post-job-modal">
+      <div className="post-job">
+        <h2>Post a Job</h2>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Job Title:
+            <input
+              type="text"
+              name="title"
+              value={job.title}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          <label>
+            Description:
+            <textarea
+              name="description"
+              value={job.description}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          <label>
+            Location:
+            <input
+              type="text"
+              name="location"
+              value={job.location}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          <label>
+            Salary:
+            <input
+              type="number"
+              name="salary"
+              value={job.salary}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Job Type:
+            <select
+              name="jobType"
+              value={job.jobType}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Type</option>
+              <option value="Full-Time">Full-Time</option>
+              <option value="Part-Time">Part-Time</option>
+              <option value="Contract">Contract</option>
+              <option value="Freelance">Freelance</option>
+            </select>
+          </label>
+          <label>
+            Requirements:
+            <textarea
+              name="requirements"
+              value={job.requirements}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Benefits:
+            <textarea
+              name="benefits"
+              value={job.benefits}
+              onChange={handleChange}
+            />
+          </label>
+          <div className="form-buttons">
+            <button type="submit" className="btn">Post Job</button>
+            <button type="button" className="btn" onClick={onClose}>Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default PostJob;

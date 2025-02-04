@@ -1,0 +1,95 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    padding: 1rem;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .action-btn {
+    background-color: white;
+    color: #007bff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .dashboard-body {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .left-sidebar,
+  .right-sidebar {
+    width: 20%;
+  }
+  
+  .main-panel {
+    flex: 1;
+  }
+  
+  .profile-overview {
+    text-align: center;
+    background: #f4f4f4;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  
+  .profile-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .profile-btn {
+    display: block;
+    margin: 0.5rem auto;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .notifications,
+  .job-feed,
+  .messages-preview {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  
+  .job-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+  }
+  
+  .apply-btn,
+  .save-btn,
+  .message-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
