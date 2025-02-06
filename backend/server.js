@@ -15,7 +15,7 @@ const app = express();
 // Enable CORS for frontend
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: "*", // Allow access from all origins
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -26,6 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/reviews", reviewRoutes);
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Content-Security-Policy", "script-src 'self' 'unsafe-eval'");
+  next();
+});
 
 // Create an HTTP server
 const server = http.createServer(app);
@@ -40,6 +47,15 @@ app.use("/api", indexRouter);
 // Root route
 app.get("/", (req, res) => {
   res.send("Welcome to the API");
+});
+// Test database connection
+app.get('/test-db', async (req, res) => {
+  try {
+    const result = await sequelize.query('SELECT 1+1 AS result');
+    res.status(200).json({ status: 'success', result });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: error.message });
+  }
 });
 
 // Database connection & synchronization

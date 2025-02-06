@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { io } from 'socket.io-client';
 import "./styles.css";
 import Navbar from "./components/Navbar";
@@ -9,40 +9,20 @@ import Newsletter from "./components/NewsLetter";
 import EmployerDashboard from "./components/EmployerDashboard/EmployerDashboard";
 import JobseekerDashboard from "./components/JobseekerDashboard/JobseekerDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { jwtDecode } from "jwt-decode"; // Correct named import
 import JobPostings from "./components/JobPostings";
-import JobFilter from "./JobFilter";
+
 import axios from "axios";
 import EmployerRatings from "./EmployerRatings";
 
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false); 
+  const [setIsAuthenticated] = useState(false); 
   const [showLogin, setShowLogin] = useState(false); 
   const [showSignUp, setShowSignUp] = useState(false); 
   const [jobs, setJobs] = useState([]); // State to store filtered jobs
-  const [userRole, setUserRole] = useState(null); 
-  const navigate = useNavigate(); 
 
- 
- 
-  
-  useEffect(() => { 
-    const token = localStorage.getItem("token"); 
-    if (token) { 
-      try { 
-        const decoded = jwtDecode(token); 
-        if (decoded.exp * 1000 > Date.now()) { 
-          setIsAuthenticated(true); 
-          setUserRole(decoded.role); // Set the user's role
-        } else { 
-          localStorage.removeItem("token"); 
-        } 
-      } catch (err) { 
-        console.error("Invalid token:", err); 
-      } 
-    } 
-  }, []); 
+
+
 
   useEffect(() => {
     const socket = io('http://localhost:5000', {
@@ -119,27 +99,27 @@ const App = () => {
 
       {/* Main Content */}
       <main>
-        <Routes>
-          <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setShowLogin={setShowLogin} />} />
-          <Route path="/signup" element={<SignupForm setShowSignUp={setShowSignUp} />} />
-          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} userRole={userRole} requiredRole="employer" />}>
-            <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-          </Route>
-          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} userRole={userRole} requiredRole="jobseeker" />}>
-            <Route path="/jobseeker-dashboard" element={<JobseekerDashboard />} />
-          </Route>
-          <Route path="/" element={
-            <>
-              <section className="tafutakazi">
-                <JobPostings jobs={jobs} />
-                <EmployerRatings />           
-                <Newsletter />
-              </section>
-            </>
-          } />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </main>
+          <Routes>
+            <Route path="/login" element={<LoginForm setShowLogin={setShowLogin} />} />
+            <Route path="/signup" element={<SignupForm setShowSignUp={setShowSignUp} />} />
+            <Route element={<ProtectedRoute requiredRole="employer" />}>
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+            </Route>
+            <Route element={<ProtectedRoute requiredRole="jobseeker" />}>
+              <Route path="/jobseeker-dashboard" element={<JobseekerDashboard />} />
+            </Route>
+            <Route path="/" element={
+              <>
+                <section className="tafutakazi">
+                  <JobPostings jobs={jobs} />
+                  <EmployerRatings />           
+                  <Newsletter />
+                </section>
+              </>
+            } />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </main>
     <footer className="footer">
       <div className="footer-content">
         <p>&copy; 2025 CasualConnect. All rights reserved.</p>

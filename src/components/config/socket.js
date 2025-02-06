@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
-// Configure Socket.IO connection globally
-const socket = io("http://localhost:5000", {
+const SOCKET_IO_URL = process.env.REACT_APP_SOCKET_IO_URL;
+const socket = io(SOCKET_IO_URL, {
   transports: ['websocket', 'polling'], // Ensure correct transport methods
   reconnection: true, // Enable reconnection
   reconnectionAttempts: Infinity, // Number of reconnection attempts

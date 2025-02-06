@@ -1,3 +1,5 @@
+/* Navbar.css */
+
 /* General Reset */
 * {
   margin: 0;
@@ -10,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #06103d;
+  background-color: #007bff;
   color: white;
   padding: 10px 20px;
   position: sticky;
@@ -105,7 +107,7 @@
     top: 60px;
     left: 0;
     width: 100%;
-    background-color: #2d5d91;
+    background-color: #007bff;
     flex-direction: column;
     align-items: center;
     gap: 10px;
@@ -131,9 +133,7 @@
     display: block;
   }
 
-  .navbar-buttons {
-    display: none;
-  }
+
 
   .mobile-auth button, .mobile-logout button {
     background-color: white;
@@ -148,5 +148,19 @@
 
   .mobile-auth button:hover, .mobile-logout button:hover {
     background-color: #f0f0f0;
+  }
+}
+/* Hide mobile auth buttons on larger screens */
+@media (min-width: 768px) {
+  .mobile-auth,
+  .mobile-logout {
+    display: none;
+  }
+}
+
+/* Show desktop auth buttons only on larger screens */
+@media (max-width: 767px) {
+  .navbar-buttons button {
+    display: none;
   }
 }
