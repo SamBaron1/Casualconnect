@@ -20,7 +20,7 @@ const Navbar = ({ setShowLogin, setShowSignUp }) => {
 
   const handlePostJobClick = () => {
     if (isAuthenticated && userRole === 'employer') {
-      navigate('/employer-dashboard/post-job'); // Navigate to the Post Job page
+      navigate('/employer-dashboard'); // Navigate to the Post Job page
     } else if (!isAuthenticated) {
       alert("Please log in to post a job.");
       setShowLogin(true); // Show login modal

@@ -1,92 +1,80 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-}
+/* JobseekerProfile.css */
 
+/* Profile Card Container */
 .profile-card {
-  background: #fff;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   max-width: 400px;
   margin: 20px auto;
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s;
 }
 
-.profile-card:hover {
-  transform: translateY(-10px);
-}
-
+/* Profile Header */
 .profile-header {
-  background: #4CAF50;
-  color: white;
-  padding: 10px;
-  border-radius: 8px 8px 0 0;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
+.profile-header h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+/* Profile Body */
 .profile-body {
-  padding: 20px;
-  text-align: left;
+  font-size: 16px;
+  color: #555;
 }
 
 .profile-body p {
   margin: 10px 0;
 }
 
-.loading, .error, .no-profile {
-  text-align: center;
-  font-size: 1.2em;
-  color: #ff6347;
+.profile-body strong {
+  color: #333;
 }
 
+/* Loading State */
 .loading {
-  color: #4CAF50;
+  text-align: center;
+  font-size: 18px;
+  color: #007bff;
 }
 
+/* Error State */
 .error {
-  color: #ff6347;
+  text-align: center;
+  font-size: 18px;
+  color: #dc3545;
 }
 
+/* No Profile State */
 .no-profile {
-  color: #ff6347;
+  text-align: center;
+  font-size: 18px;
+  color: #6c757d;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 600px) {
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
   .profile-card {
-    max-width: 90%;
-    margin: 10px auto;
     padding: 15px;
+    margin: 10px;
   }
 
-  .profile-header {
-    padding: 8px;
-    font-size: 1.2em;
+  .profile-header h2 {
+    font-size: 20px;
   }
 
   .profile-body {
-    padding: 15px;
+    font-size: 14px;
   }
 
-  .profile-body p {
-    margin: 8px 0;
-  }
-}
-
-@media (max-width: 400px) {
-  .profile-header {
-    font-size: 1em;
-    padding: 5px;
-  }
-
-  .profile-body {
-    padding: 10px;
-  }
-
-  .profile-body p {
-    margin: 5px 0;
+  .loading,
+  .error,
+  .no-profile {
+    font-size: 16px;
   }
 }

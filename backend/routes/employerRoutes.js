@@ -46,7 +46,8 @@ router.get('/:employerId/applications', async (req, res) => {
       ],
       where: {
         status: { [Op.or]: ['Accepted', 'Pending'] }  // Filter by multiple statuses
-      }
+      },
+      order: [['createdAt', 'DESC']] // Add this line to sort by latest first
     });
     console.log('Retrieved applications:', applications); // Log retrieved applications
     res.json(applications);
@@ -55,6 +56,7 @@ router.get('/:employerId/applications', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch applications' });
   }
 });
+
 
 
 router.post('/:employerId/applications/:applicationId', async (req, res) => {

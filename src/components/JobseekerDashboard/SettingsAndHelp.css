@@ -45,6 +45,7 @@
 .section {
   margin: 20px 0;
   text-align: left;
+  background: transparent;
 }
 
 /* Setting Items */

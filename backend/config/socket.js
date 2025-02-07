@@ -5,13 +5,9 @@ let io; // Declare Socket.IO globally
 const initializeSocket = (server) => {
   io = socketIo(server, {
     cors: {
-      origin: [
-        "http://localhost:3000",
-        "https://37e3-102-213-241-210.ngrok-free.app",
-        "https://db4f-102-213-241-210.ngrok-free.app"
-      ],
+      origin: "http://localhost:3000",
       methods: ["GET", "POST"],
-      credentials: true
+      credentials: true,
     },
   });
 

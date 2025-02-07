@@ -24,5 +24,5 @@ CasualConnect is a web-based platform that connects daily workers with employers
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/your-username/casualconnect.git
+   git clone https://github.com/SamBaron1/Casualconnect.git
    cd casualconnect

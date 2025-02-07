@@ -56,6 +56,7 @@ router.get('/:userId/applications', async (req, res) => {
     const applications = await Application.findAll({
       where: { user_id: userId },
       include: [{ model: Job, attributes: ['title', 'description'] }],
+      order: [['createdAt', 'DESC']],
     });
     console.log('Retrieved applications:', applications); // Log retrieved applications
     res.json(applications);
@@ -162,6 +163,7 @@ router.get('/:userId/saved-jobs', async (req, res) => {
     const savedJobs = await SavedJob.findAll({
       where: { user_id: userId },
       include: [{ model: Job, attributes: ['title', 'description', 'createdAt'] }],
+      order: [['createdAt', 'DESC']], // Add this line to sort by latest first
     });
     console.log('Retrieved saved jobs:', savedJobs); // Log retrieved saved jobs
     res.json(savedJobs);

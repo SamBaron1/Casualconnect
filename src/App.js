@@ -28,6 +28,16 @@ const App = () => {
     const socket = io('http://localhost:5000', {
       withCredentials: true,
     });
+     // Request notification permission
+  if (Notification.permission !== 'granted') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted.');
+      } else {
+        console.log('Notification permission denied.');
+      }
+    });
+  }
 
     // Listen for notifications from the server
     socket.on('receiveNotification', (notification) => {

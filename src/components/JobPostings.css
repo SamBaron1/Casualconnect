@@ -1,13 +1,14 @@
 /* Main Container */
 .job-listings-container {
-  width: 90%;
-  max-width: 800px;
+
   margin: auto;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+   align-items: center;
+   justify-content: center;
 }
 
 /* Title */
@@ -23,8 +24,7 @@
   background: #f0e9e9;
   padding: 10px;
   border-radius: 8px;
-  width: 100%;
-  max-width: 800px;
+
 }
 
 .search-container input {
@@ -124,8 +124,9 @@
 /* Buttons */
 .job-buttons {
   display: flex;
-  justify-content: space-between;
+  
   margin-top: 10px;
+  gap: 10px;
 }
 
 .btn {

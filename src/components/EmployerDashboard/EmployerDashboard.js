@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import { Link } from "react-router-dom";
 import EmployerProfile from "./EmployerProfile.js"; // Similar to ProfileSection
-import PostJob from "./PostJob";
+import PostJob from "./PostJob.js";
 import ActiveJobs from "./ActiveJobs";
 import JobApplications from "./JobApplications"; // Similar to AppliedJobs
 import EmployerNotifications from "./EmployerNotifications"; // Similar to NotificationsPanel
