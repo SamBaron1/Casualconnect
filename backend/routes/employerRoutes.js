@@ -5,6 +5,36 @@ const { Op } = require('sequelize');
 const { sendNotification } = require("../config/socket");
 console.log("sendNotification function:", sendNotification);
 
+
+
+
+// DELETE a job posted by the employer
+router.delete('/:employerId/jobs/:jobId', async (req, res) => {
+  const { employerId, jobId } = req.params;
+
+  try {
+    // Find the job to delete
+    const job = await Job.findOne({ where: { id: jobId, employer_id: employerId } });
+    if (!job) {
+      return res.status(404).json({ error: 'Job not found' });
+    }
+
+    // Delete all related notifications first to satisfy the foreign key constraint
+    await Notification.destroy({ where: { jobId: job.id } });
+
+    // Delete all related applications
+    await Application.destroy({ where: { job_id: job.id } });
+
+    // Delete the job itself
+    await job.destroy();
+
+    res.json({ message: 'Job and related data deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting job:', error);
+    res.status(500).json({ error: 'Failed to delete job' });
+  }
+});
+
 // GET paginated jobs posted by the logged-in employer
 router.get('/:employerId/jobs', async (req, res) => {
   const employerId = req.params.employerId;

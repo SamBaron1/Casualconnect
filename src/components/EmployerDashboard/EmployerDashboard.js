@@ -56,7 +56,7 @@ const EmployerDashboard = () => {
         </button>
         <Link to="/logout">
           <button className="btn footer-btn">
-            <i className="fas fa-sign-out-alt"></i> Logout
+            <i className="fas fa-sign-out-alt"></i> Exit
           </button>
         </Link>
       </footer>

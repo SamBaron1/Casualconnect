@@ -38,7 +38,8 @@ router.get('/:userId/jobs', async (req, res) => {
     }
     const jobs = await Job.findAll({
       where: { location: user.location },
-      attributes: ['id', 'title', 'description', 'location'],
+      attributes: ['id', 'title', 'description', 'location', 'createdAt'],
+      order: [['createdAt', 'DESC']], // Order by latest jobs first
     });
     res.json(jobs);
   } catch (error) {

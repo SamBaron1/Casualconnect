@@ -36,7 +36,7 @@ function ActiveJobs() {
   };
   const handleDeleteJob = async (jobId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/jobs/${jobId}`);
+      await axios.delete(`http://localhost:5000/api/employer/${userId}/jobs/${jobId}`);
       setJobs(jobs.filter((job) => job.id !== jobId)); // Remove deleted job from UI
     } catch (error) {
       console.error("Error deleting job:", error);
