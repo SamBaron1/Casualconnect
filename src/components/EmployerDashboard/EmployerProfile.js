@@ -2,6 +2,12 @@ import React from "react";
 import useFetchProfile from "../../hooks/useFetchProfile";
 import "./EmployerProfile.css";
 
+const capitalize = (text) => {
+  if (!text) return ""; // Return an empty string if text is null or undefined
+  return text.replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
+
 const EmployerProfile = () => {
   const userId = localStorage.getItem("userId"); // Assume userId is stored after login
   const { profile, loading, error } = useFetchProfile(userId);
@@ -21,12 +27,12 @@ const EmployerProfile = () => {
   return (
     <div className="profile-card">
       <div className="profile-header">
-        <h2>{profile.name}</h2>
+      <h2>{profile.name ? capitalize(profile.name) : "No Name Provided"}</h2>
       </div>
       <div className="profile-body">
-        <p><strong>Email:</strong> {profile.email}</p>
-        <p><strong>Company:</strong> {profile.companyName}</p>
-        <p><strong>Location:</strong> {profile.location}</p>
+      <p><strong>Email:</strong> {profile.email}</p>
+      <p><strong>Company:</strong> {profile.companyName ? capitalize(profile.companyName) : "N/A"}</p>
+      <p><strong>Location:</strong> {profile.location ? capitalize(profile.location) : "N/A"}</p>
       </div>
     </div>
   );

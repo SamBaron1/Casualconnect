@@ -35,7 +35,9 @@
   font-size: 12px;
   color: #777;
 }
-
+.notifications-container h3 {
+  color: maroon;
+}
 /* No notifications message */
 .notifications-container > p {
   text-align: center;

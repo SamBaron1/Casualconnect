@@ -2,6 +2,10 @@ import React from "react";
 import useFetchProfile from "../../hooks/useFetchProfile";
 import "./JobseekerProfile.css";
 
+const capitalize = (text) => {
+  return text.replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 const JobseekerProfile = () => {
   const userId = localStorage.getItem("userId"); // Assume userId is stored after login
   const { profile, loading, error } = useFetchProfile(userId);
@@ -21,12 +25,12 @@ const JobseekerProfile = () => {
   return (
     <div className="profile-card">
       <div className="profile-header">
-        <h2>{profile.name}</h2>
+        <h2>{capitalize(profile.name)}</h2>
       </div>
       <div className="profile-body">
         <p><strong>Email:</strong> {profile.email}</p>
-        <p><strong>Desired Job:</strong> {profile.desiredJob}</p>
-        <p><strong>Location:</strong> {profile.location}</p>
+        <p><strong>Desired Job:</strong> {capitalize(profile.desiredJob)}</p>
+        <p><strong>Location:</strong> {capitalize(profile.location)}</p>
       </div>
     </div>
   );
