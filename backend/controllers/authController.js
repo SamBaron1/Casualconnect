@@ -90,12 +90,34 @@ exports.login = async (req, res) => {
   }
 };
 
+// Configure email transporter once, outside the function
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465, // Use 587 if TLS is preferred
+  secure: true, // true for 465, false for 587
+  auth: {
+    user: process.env.EMAIL, 
+    pass: process.env.EMAIL_PASSWORD, // Use App Password here
+  },
+  tls: {
+    rejectUnauthorized: false, // Bypass TLS issues
+  },
+  connectionTimeout: 100000, // Extend timeout in milliseconds
+  pool: true, // Reduce connection issues by reusing connections
+  maxConnections: 1, // Limit concurrent connections
+  maxMessages: 10, // Control email sending rate
+});
+
+
 // Send reset link
 exports.sendResetLink = async (req, res) => {
   const { email } = req.body;
+  console.log('Email received:', email);
 
   try {
     const user = await User.findByEmail(email);
+    console.log('Finding user with email:', email); // Debugging log
+
     if (!user) {
       return res.status(400).json({ message: 'No user found with this email address.' });
     }
@@ -103,16 +125,8 @@ exports.sendResetLink = async (req, res) => {
     const resetToken = crypto.randomBytes(32).toString('hex');
     resetTokens[resetToken] = email;
 
-    // Configure email transporter (Use environment variables for security)
-    const transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-
     const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
+
     await transporter.sendMail({
       from: process.env.EMAIL,
       to: email,
@@ -126,6 +140,7 @@ exports.sendResetLink = async (req, res) => {
     res.status(500).json({ message: 'Error sending reset link', error: err.message });
   }
 };
+
 
 // Reset password
 exports.resetPassword = async (req, res) => {
