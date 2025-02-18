@@ -12,8 +12,7 @@ const AvailableJobs = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const userInfoResponse = await axios.get(`http://localhost:5000/api/jobseeker/${userId}/info`);
-        const jobseekerLocation = userInfoResponse.data.location;
+        await axios.get(`http://localhost:5000/api/jobseeker/${userId}/info`);
 
         const jobsResponse = await axios.get(`http://localhost:5000/api/jobseeker/${userId}/jobs`);
         setJobs(jobsResponse.data);

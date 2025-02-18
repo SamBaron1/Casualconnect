@@ -27,7 +27,7 @@ body {
 main {
   flex: 1;
   padding: 10px;
-  background-image: url('/public/background8.jpeg');
+  background-image: url('/public/background2.jpeg');
   background-size: cover; /* Ensure the image covers the whole background */
   background-position: center; /* Center the image */
   margin: 20px;

@@ -123,7 +123,7 @@ router.post('/:employerId/applications/:applicationId', async (req, res) => {
       notificationMessage = `
         Dear ${jobseeker.name},
 
-        Congratulations! Your application for the job "${job.title}" has been accepted.
+        Your application for the job "${job.title}" has been received.
 
         Please respond with your updated CV at your earliest convenience to my email: "${employer.email}".
 
