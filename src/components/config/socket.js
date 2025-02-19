@@ -1,23 +1,21 @@
 import { io } from "socket.io-client";
 
 // Configure Socket.IO connection globally
-const socket = io("http://localhost:5000", {
+const socket = io("https://16kxld3c-3000.inc1.devtunnels.ms", {
   transports: ['websocket', 'polling'], // Ensure correct transport methods
-  reconnection: true, // Enable reconnection
-  reconnectionAttempts: Infinity, // Number of reconnection attempts
-  reconnectionDelay: 1000, // Delay between reconnections
-  reconnectionDelayMax: 5000, // Maximum delay between reconnections
+  withCredentials: true, // Enable credentials
 });
 
-// Event listener for connection success
 socket.on("connect", () => {
   console.log(`Connected to Socket.IO server with ID: ${socket.id}`);
 });
 
-// Event listener for disconnection
+socket.on("notification", (data) => {
+  console.log("Received notification:", data);
+});
+
 socket.on("disconnect", () => {
   console.log("Disconnected from Socket.IO server");
 });
 
-// Export the socket instance for use in other files
 export default socket;

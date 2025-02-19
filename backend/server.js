@@ -13,15 +13,27 @@ const reviewRoutes = require("./routes/reviewRoutes");
 const app = express();
 
 
-// Enable CORS for frontend
+
+// Enable CORS for specific origins
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://16kxld3c-3000.inc1.devtunnels.ms",
+  // Add any other allowed origins here
+];
+
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    credentials: true, // Enable credentials
   })
 );
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

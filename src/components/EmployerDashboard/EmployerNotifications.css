@@ -27,6 +27,15 @@
   font-size: 14px;
   color: #333;
 }
+.notification-item button {
+ background-color: #777;
+ padding: 5px;
+ font-size: 8px;
+}
+.delete-all-btn {
+  background-color: #777;
+  padding: 5px;
+}
 
 /* Notification timestamp */
 .notification-item small {

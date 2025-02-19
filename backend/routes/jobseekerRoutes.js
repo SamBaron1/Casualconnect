@@ -67,7 +67,6 @@ router.get('/:userId/applications', async (req, res) => {
   }
 });
 
-
 // Apply for a job
 router.post('/:userId/apply', async (req, res) => {
   const { userId } = req.params;
@@ -82,6 +81,14 @@ router.post('/:userId/apply', async (req, res) => {
     const job = await Job.findByPk(jobId);
     if (!job) {
       return res.status(404).json({ error: 'Job not found' });
+    }
+
+    // Check if the jobseeker has already applied for this job
+    const existingApplication = await Application.findOne({
+      where: { job_id: jobId, user_id: userId },
+    });
+    if (existingApplication) {
+      return res.status(400).json({ error: 'You have already applied for this job' });
     }
 
     const employerId = job.employer_id; // Retrieve employer ID from the job
@@ -104,7 +111,7 @@ router.post('/:userId/apply', async (req, res) => {
     }
 
     // Notification message
-    const notificationMessage = `${user.name} has applied for your job "${job.title}" in ${job.location}.`;
+    const notificationMessage = `${user.name} has applied for your job "${job.title}".`;
 
     // Save notification in the database
     await Notification.create({
@@ -124,13 +131,24 @@ router.post('/:userId/apply', async (req, res) => {
 
     console.log(`Notification sent to Employer ${employer.email}: ${notificationMessage}`);
 
-    //  Return the application data and a success message
+    // Return the application data and a success message
     res.status(201).json({ message: "Job application submitted successfully", application });
   } catch (error) {
     console.error('Error applying for job:', error);
-    res.status(500).json({ error: 'Failed to apply for job', message: error.message });
+
+    let errorMessage = 'Failed to apply for job. Please try again.';
+    if (error.message.includes('Only job seekers can apply for jobs')) {
+      errorMessage = 'Only job seekers can apply for jobs.';
+    } else if (error.message.includes('Job not found')) {
+      errorMessage = 'The job you are trying to apply for does not exist.';
+    } else if (error.message.includes('You have already applied for this job')) {
+      errorMessage = 'You have already applied for this job.';
+    }
+
+    res.status(500).json({ error: errorMessage, message: error.message });
   }
 });
+
 
 // Save a job
 router.post('/:userId/save', async (req, res) => {
@@ -143,6 +161,19 @@ router.post('/:userId/save', async (req, res) => {
       return res.status(403).json({ error: 'Only job seekers can save jobs' });
     }
 
+    const job = await Job.findByPk(jobId);
+    if (!job) {
+      return res.status(404).json({ error: 'Job not found' });
+    }
+
+    // Check if the jobseeker has already saved this job
+    const existingSavedJob = await SavedJob.findOne({
+      where: { job_id: jobId, user_id: userId },
+    });
+    if (existingSavedJob) {
+      return res.status(400).json({ error: 'You have already saved this job' });
+    }
+
     const savedJob = await SavedJob.create({
       job_id: jobId,
       user_id: userId,
@@ -151,9 +182,21 @@ router.post('/:userId/save', async (req, res) => {
     res.status(201).json(savedJob);
   } catch (error) {
     console.error('Error saving job:', error);
-    res.status(500).json({ error: 'Failed to save job', message: error.message });
+
+    let errorMessage = 'Failed to save job. Please try again.';
+    if (error.message.includes('Only job seekers can save jobs')) {
+      errorMessage = 'Only job seekers can save jobs.';
+    } else if (error.message.includes('Job not found')) {
+      errorMessage = 'The job you are trying to save does not exist.';
+    } else if (error.message.includes('You have already saved this job')) {
+      errorMessage = 'You have already saved this job.';
+    }
+
+    res.status(500).json({ error: errorMessage, message: error.message });
   }
 });
+
+
 
 // Get saved jobs for a jobseeker
 router.get('/:userId/saved-jobs', async (req, res) => {

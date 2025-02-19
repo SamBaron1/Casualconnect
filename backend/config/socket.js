@@ -5,9 +5,13 @@ let io; // Declare Socket.IO globally
 const initializeSocket = (server) => {
   io = socketIo(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: [
+        "http://localhost:3000",
+        "https://16kxld3c-3000.inc1.devtunnels.ms",
+        // Add any other allowed origins here
+      ],
       methods: ["GET", "POST"],
-      credentials: true,
+      credentials: true, // Enable credentials
     },
   });
 
@@ -17,7 +21,7 @@ const initializeSocket = (server) => {
     socket.on("joinRoom", (room) => {
       socket.join(room);
       console.log(`User joined room: ${room}`);
-    socket.emit('notification', { message: 'This is a test notification!' });
+      socket.emit('notification', { message: 'This is a test notification!' });
     });
 
     socket.on("leaveRoom", (room) => {
