@@ -37,9 +37,13 @@ const LoginForm = ({ setShowLogin }) => {
       setUserRole(data.role); // Set the user role from response
       setShowLogin(false);
 
-      const dashboardRoute =
-        data.role === "employer" ? "/employer-dashboard" : "/jobseeker-dashboard";
-      navigate(dashboardRoute);
+const dashboardRoute =
+  data.role === "admin"
+    ? "/admin-dashboard"
+    : data.role === "employer"
+    ? "/employer-dashboard"
+    : "/jobseeker-dashboard";
+navigate(dashboardRoute);
     } catch (error) {
       console.error("Error:", error);
       setIsLoading(false);

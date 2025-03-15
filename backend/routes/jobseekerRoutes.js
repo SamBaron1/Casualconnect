@@ -111,7 +111,8 @@ router.post('/:userId/apply', async (req, res) => {
     }
 
     // Notification message
-    const notificationMessage = `${user.name} has applied for your job "${job.title}".`;
+    const notificationMessage = `${user.name} from ${user.location} has applied for your job "${job.title}".
+     Applicant will receive your email if you accept their application and respond with their updated CV!`;
 
     // Save notification in the database
     await Notification.create({

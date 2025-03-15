@@ -1,0 +1,173 @@
+/* General Styles */
+.newsletter-management {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.newsletter-management h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Add Subscriber Section */
+.add-subscriber {
+  margin-bottom: 30px;
+}
+
+.add-subscriber h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.add-subscriber input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.add-subscriber button {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.add-subscriber button:hover {
+  background-color: #218838;
+}
+
+/* Subscriber List Section */
+.subscriber-list h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th,
+table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f9fafb;
+  font-weight: bold;
+  color: #333;
+}
+
+table td {
+  color: #555;
+}
+
+table button {
+  padding: 8px 12px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+table button:hover {
+  background-color: #c82333;
+}
+
+/* Send Newsletter Section */
+.send-newsletter h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.send-newsletter textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.send-newsletter button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.send-newsletter button:hover {
+  background-color: #0056b3;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .add-subscriber input {
+    width: 100%;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  table {
+    display: block;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tbody tr {
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    text-align: right;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 10px;
+    text-align: left;
+    flex: 1;
+  }
+}

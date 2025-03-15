@@ -19,7 +19,7 @@ const Profile = sequelize.define('Profile', {
     allowNull: true,
   },
   role: {
-    type: DataTypes.ENUM('employer', 'jobseeker'),
+    type: DataTypes.ENUM('employer', 'jobseeker', 'admin'),
     allowNull: false,
   },
 }, {

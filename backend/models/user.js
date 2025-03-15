@@ -23,7 +23,7 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
   role: {
-    type: DataTypes.ENUM('jobseeker', 'employer'),
+    type: DataTypes.ENUM('jobseeker', 'employer', 'admin'),
     allowNull: false,
   },
   companyName: {

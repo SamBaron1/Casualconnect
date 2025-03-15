@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+
+
 exports.authenticateToken = (req, res, next) => {
   try {
     const token =
@@ -17,6 +19,7 @@ exports.authenticateToken = (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; // Attach decoded user information to the request object
+
     next();
   } catch (err) {
     console.error('Token verification error:', err.message);
@@ -28,3 +31,11 @@ exports.authenticateToken = (req, res, next) => {
     res.status(400).json({ message: 'Invalid token' });
   }
 };
+
+exports.isAdmin = (req, res, next) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Access denied: Admins only' });
+  }
+  next();
+};
+

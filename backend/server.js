@@ -15,29 +15,19 @@ const app = express();
 
 
 // Enable CORS for specific origins
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://16kxld3c-3000.inc1.devtunnels.ms",
-  // Add any other allowed origins here
-];
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (allowedOrigins.includes(origin) || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
     credentials: true, // Enable credentials
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/reviews", reviewRoutes);
+
 
 
 // Create an HTTP server

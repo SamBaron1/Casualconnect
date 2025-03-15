@@ -8,7 +8,7 @@ const API = axios.create({ baseURL: API_BASE_URL });
 // Subscribe to Newslettera
 export const subscribeToNewsletter = async (email) => {
   try {
-    const response = await API.post('/newsletter/subscribe', { email });
+    const response = await API.post('admin/newsletter/subscribe', { email });
     return response.data;
   } catch (error) {
     console.error('Error subscribing to newsletter:', error);

@@ -9,6 +9,7 @@ const SavedJob = require('./SavedJob');
 const Review = require('./Review'); // Import the Review model
 
 
+
 // Set up associations
 User.hasMany(Job, { foreignKey: 'employer_id', onDelete: 'CASCADE' });
 Job.belongsTo(User, { foreignKey: 'employer_id' });

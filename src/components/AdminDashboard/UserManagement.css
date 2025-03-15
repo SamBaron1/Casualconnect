@@ -1,0 +1,150 @@
+/* General Styles */
+.user-management {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-management h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Search Bar */
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  /* Table Styles */
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .users-table th,
+  .users-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .users-table th {
+    background-color: #f9fafb;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .users-table td {
+    color: #555;
+  }
+  
+  /* Buttons */
+  .btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn.deactivate {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .btn.deactivate:hover {
+    background-color: #c82333;
+  }
+  
+  /* No Users Found */
+  .no-users {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+  }
+  /* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  border: 1px solid #007bff;
+  background-color: #fff;
+  color: #007bff;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination button:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+  border-color: #dee2e6;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #007bff;
+  color: #fff;
+}
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .users-table {
+      display: block;
+    }
+  
+    .users-table thead {
+      display: none;
+    }
+  
+    .users-table tbody tr {
+      display: block;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  
+    .users-table td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      text-align: right;
+    }
+  
+    .users-table td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      margin-right: 10px;
+      text-align: left;
+      flex: 1;
+    }
+  }

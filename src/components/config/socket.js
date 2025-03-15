@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
 // Configure Socket.IO connection globally
-const socket = io("https://16kxld3c-3000.inc1.devtunnels.ms", {
+const socket = io("http://localhost:5000", {
   transports: ['websocket', 'polling'], // Ensure correct transport methods
   withCredentials: true, // Enable credentials
 });

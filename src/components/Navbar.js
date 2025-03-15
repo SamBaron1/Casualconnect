@@ -73,7 +73,16 @@ const Navbar = ({ setShowLogin, setShowSignUp }) => {
         </li>
         {isAuthenticated && (
           <li>
-            <Link to={userRole === 'employer' ? '/employer-dashboard' : '/jobseeker-dashboard'} onClick={() => setMenuOpen(false)}>
+            <Link 
+              to={
+                userRole === 'admin'
+                  ? '/admin-dashboard' // Redirects admins to the Admin Dashboard
+                  : userRole === 'employer'
+                  ? '/employer-dashboard'
+                  : '/jobseeker-dashboard'
+              }
+              onClick={() => setMenuOpen(false)}
+            >
               Dashboard
             </Link>
           </li>

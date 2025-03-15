@@ -1,15 +1,17 @@
-// routes/newsletter.js
 const express = require('express');
 const router = express.Router();
+const { subscribe, unsubscribe, listSubscribers, sendNewsletter } = require('../controllers/newsletterController');
 
-// Dummy subscriber data for example purposes
-const subscribers = [];
+// Add a new subscriber
+router.post('/subscribe', subscribe);
 
-router.post('/subscribe', (req, res) => {
-  const { email } = req.body;
-  // Save subscriber to database (mocked here)
-  subscribers.push({ email });
-  res.status(201).json({ message: 'Subscribed to newsletter successfully' });
-});
+// Remove a subscriber by email
+router.delete('/:email', unsubscribe);
+
+// Get all subscribers
+router.get('/', listSubscribers);
+
+// Send a bulk newsletter
+router.post('/send', sendNewsletter);
 
 module.exports = router;

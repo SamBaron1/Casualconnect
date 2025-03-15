@@ -4,7 +4,10 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const User = require('../models/user'); // Ensure the casing matches the actual file name
 
+
 let resetTokens = {}; // Store reset tokens temporarily (In production, store in the database)
+
+
 
 // Signup logic
 exports.signup = async (req, res) => {
@@ -58,35 +61,48 @@ exports.signup = async (req, res) => {
   }
 };
 
-// Login logic
+
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findByEmail(email);
-    if (!user) return res.status(401).json({ message: 'Invalid email or password' });
+    // Log email being checked
+    console.log("Finding user with email:", email);
 
+    // Find user by email
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      console.error("User not found:", email);
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    // Verify password
+    console.log("Verifying password for user:", email);
     const isPasswordValid = await bcrypt.compare(password, user.password);
-
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+      console.error("Invalid password for email:", email);
+      return res.status(401).json({ message: "Invalid email or password" });
     }
 
     // Generate JWT token
+    console.log("Generating JWT token for user:", email);
     const token = jwt.sign(
       { id: user.id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' }
+      { expiresIn: "1h" }
     );
 
+    // Send response
+    console.log("Login successful for user:", email);
     res.status(200).json({
-      message: 'Login successful',
+      message: "Login successful",
       token,
-      role: user.role, // Pass role for frontend redirection
+      role: user.role, // For frontend redirection
     });
   } catch (err) {
-    console.error('Database error:', err.message); // Log database error with detailed message
-    res.status(500).json({ message: 'Database error', error: err.message });
+    // Handle errors
+    console.error("Login error:", err.message);
+    res.status(500).json({ message: "Database error", error: err.message });
   }
 };
 

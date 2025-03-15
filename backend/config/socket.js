@@ -5,11 +5,7 @@ let io; // Declare Socket.IO globally
 const initializeSocket = (server) => {
   io = socketIo(server, {
     cors: {
-      origin: [
-        "http://localhost:3000",
-        "https://16kxld3c-3000.inc1.devtunnels.ms",
-        // Add any other allowed origins here
-      ],
+      origin: "http://localhost:3000",
       methods: ["GET", "POST"],
       credentials: true, // Enable credentials
     },

@@ -1,0 +1,135 @@
+/* General Styles */
+.job-management {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.job-management h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters input,
+.filters select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Table Styles */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.job-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.job-table th,
+.job-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.job-table th {
+  background-color: #f9fafb;
+  font-weight: bold;
+  color: #333;
+}
+
+.job-table td {
+  color: #555;
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn.approve {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn.approve:hover {
+  background-color: #218838;
+}
+
+.btn.delete {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn.delete:hover {
+  background-color: #c82333;
+}
+
+/* No Jobs Found */
+.no-jobs {
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .job-table {
+    display: block;
+  }
+
+  .job-table thead {
+    display: none;
+  }
+
+  .job-table tbody tr {
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .job-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    text-align: right;
+  }
+
+  .job-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 10px;
+    text-align: left;
+    flex: 1;
+  }
+
+  .filters input,
+  .filters select {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
