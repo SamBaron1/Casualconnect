@@ -5,7 +5,7 @@ let io; // Declare Socket.IO globally
 const initializeSocket = (server) => {
   io = socketIo(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: ["http://localhost:3000", "https://casualconnect.vercel.app"],
       methods: ["GET", "POST"],
       credentials: true, // Enable credentials
     },

@@ -1,9 +1,11 @@
 import { io } from "socket.io-client";
 
 // Configure Socket.IO connection globally
-const socket = io("http://localhost:5000", {
-  transports: ['websocket', 'polling'], // Ensure correct transport methods
-  withCredentials: true, // Enable credentials
+const socket = io("https://casualconnect.vercel.app", {
+  transports: ['websocket', 'polling'],
+  withCredentials: true,
+  reconnectionAttempts: 5, // Limit reconnection attempts
+  reconnectionDelay: 1000, // Delay between retries
 });
 
 socket.on("connect", () => {
