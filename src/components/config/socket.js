@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
 // Configure Socket.IO connection globally
-const socket = io("https://casualconnect.vercel.app", {
+const socket = io("http://localhost:5000", {
   transports: ['websocket', 'polling'],
   withCredentials: true,
   reconnectionAttempts: 5, // Limit reconnection attempts
