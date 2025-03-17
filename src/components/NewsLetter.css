@@ -1,7 +1,7 @@
 /* Newsletter.css */
 .newsletter {
     padding: 20px;
-    background-color: #4c6886;
+    background: linear-gradient(90deg, #1e3c72, #2a5298);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     
@@ -42,7 +42,7 @@
   
   .newsletter button {
     padding: 10px;
-    background-color: #007bff;
+    background-color: #ffb400;
     color: white;
     border: none;
     border-radius: 5px;

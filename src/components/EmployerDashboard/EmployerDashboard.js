@@ -1,15 +1,12 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import EmployerProfile from "./EmployerProfile.js"; // Similar to ProfileSection
+import EmployerProfile from "./EmployerProfile.js";
 import PostJob from "./PostJob.js";
 import ActiveJobs from "./ActiveJobs";
-import JobApplications from "./JobApplications"; // Similar to AppliedJobs
-import EmployerNotifications from "./EmployerNotifications"; // Similar to NotificationsPanel
+import JobApplications from "./JobApplications";
+import EmployerNotifications from "./EmployerNotifications";
 import SettingsAndHelp from "./SettingsAndHelp";
-import "./EmployerDashboard.css"; // Use similar CSS structure
-
-
-
+import "./EmployerDashboard.css";
 
 const EmployerDashboard = () => {
   const [showPostJob, setShowPostJob] = useState(false);
@@ -19,7 +16,6 @@ const EmployerDashboard = () => {
   const togglePostJob = () => setShowPostJob(!showPostJob);
   const toggleSettings = () => setShowSettings(!showSettings);
   const toggleHelp = () => setShowHelp(!showHelp);
-
 
   return (
     <div className="employer-dashboard-container">
@@ -33,14 +29,11 @@ const EmployerDashboard = () => {
       <div className="employer-middle-section">
         <ActiveJobs />
         <JobApplications />
-   
       </div>
 
       {/* Bottom Section */}
       <div className="employer-bottom-section">
-     
-        
-        
+        {/* Add any additional content here */}
       </div>
 
       {/* Footer Section */}
@@ -55,16 +48,34 @@ const EmployerDashboard = () => {
           <i className="fas fa-question-circle"></i> Help
         </button>
         <Link to="/logout">
-          <button className="btn footer-btn">
+          <button className="btn footer-btn logout">
             <i className="fas fa-sign-out-alt"></i> Exit
           </button>
         </Link>
       </footer>
 
       {/* Conditional Rendering */}
-      {showPostJob && <PostJob onClose={togglePostJob} />}
-      {showSettings && <SettingsAndHelp onClose={toggleSettings} />}
-      {showHelp && <SettingsAndHelp onClose={toggleHelp} />}
+      {showPostJob && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            <PostJob onClose={togglePostJob} />
+          </div>
+        </div>
+      )}
+      {showSettings && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            <SettingsAndHelp onClose={toggleSettings} />
+          </div>
+        </div>
+      )}
+      {showHelp && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            <SettingsAndHelp onClose={toggleHelp} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,81 +1,73 @@
-/* EmployerDashboard.css */
-
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Dashboard Container */
+/* General Dashboard Styling */
 .employer-dashboard-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background-color: #f4f4f4;
-  padding: 20px;
   gap: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  font-family: 'Arial', sans-serif;
 }
 
 /* Top Section */
 .employer-top-section {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   gap: 20px;
 }
 
 /* Middle Section */
 .employer-middle-section {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 /* Bottom Section */
 .employer-bottom-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Footer Section */
 .employer-dashboard-footer {
   display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  bottom: 0;
-  z-index: 1000;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.employer-dashboard-footer .footer-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
+.btn.footer-btn {
+  background-color: #0b7ef1;
+  border: 1px solid #dddddd;
+  padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.employer-dashboard-footer .footer-btn:hover {
-  background-color: #0056b3;
+.btn.footer-btn:hover {
+  background-color: #e9ecef;
 }
 
-.employer-dashboard-footer .footer-btn i {
-  font-size: 16px;
+.btn.footer-btn.logout {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
 }
 
-/* Modal Overlay */
-.post-job-modal,
-.settings-modal,
-.help-modal {
+.btn.footer-btn.logout:hover {
+  background-color: #c82333;
+}
+
+/* Modal Styling (for PostJob, SettingsAndHelp, etc.) */
+.modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -85,36 +77,58 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1001;
+  z-index: 1000;
 }
 
-/* Modal Content */
-.post-job,
-.settings-content,
-.help-content {
+.modal {
   background-color: #fff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   width: 90%;
-  max-width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .employer-dashboard-container {
     padding: 10px;
+  }
+
+  .employer-top-section {
+    flex-direction: column;
     gap: 10px;
   }
 
-  .employer-dashboard-footer .footer-btn {
-    padding: 6px 12px;
-    font-size: 10px;
+  .employer-middle-section {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .employer-dashboard-footer .footer-btn i {
-    font-size: 14px;
+  .employer-bottom-section {
+    padding: 15px;
+  }
+
+  .employer-dashboard-footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .btn.footer-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .modal {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn.footer-btn {
+    font-size: 12px;
+    padding: 8px 12px;
   }
 }

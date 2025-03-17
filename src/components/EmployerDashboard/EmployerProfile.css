@@ -1,34 +1,43 @@
-/* EmployerProfile.css */
-
-/* Profile Card Container */
+/* General Profile Card Styling */
 .profile-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   max-width: 400px;
-  margin: 20px auto;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
 }
 
 /* Profile Header */
 .profile-header {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 .profile-header h2 {
   font-size: 24px;
-  color: maroon;
+  color: #333;
   margin: 0;
+}
+
+.profile-header .profile-icon {
+  font-size: 28px;
+  color: #007bff;
 }
 
 /* Profile Body */
 .profile-body {
-  font-size: 16px;
-  color: #555;
+  text-align: left;
 }
 
 .profile-body p {
+  font-size: 16px;
+  color: #555;
   margin: 10px 0;
 }
 
@@ -36,46 +45,30 @@
   color: #333;
 }
 
-/* Loading State */
-.loading {
-  text-align: center;
-  font-size: 18px;
-  color: #007bff;
-}
-
-/* Error State */
-.error {
-  text-align: center;
-  font-size: 18px;
-  color: #dc3545;
-}
-
-/* No Profile State */
+/* Loading and Error States */
+.loading,
+.error,
 .no-profile {
   text-align: center;
-  font-size: 18px;
-  color: #6c757d;
+  font-size: 16px;
+  color: #777;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .profile-card {
     padding: 15px;
-    margin: 10px;
   }
 
   .profile-header h2 {
     font-size: 20px;
-    color: maroon;
   }
 
-  .profile-body {
+  .profile-body p {
     font-size: 14px;
-  }
-
-  .loading,
-  .error,
-  .no-profile {
-    font-size: 16px;
   }
 }

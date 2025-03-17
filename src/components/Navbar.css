@@ -12,18 +12,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #007bff;
+  background: linear-gradient(90deg, #1e3c72, #2a5298); /* Gradient from blue to darker blue */
   color: white;
   padding: 10px 20px;
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
 }
 
-/* Logo */
+
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-family: 'Poppins', sans-serif; /* Use the custom font */
+  font-size: 1.8rem; /* Slightly larger for emphasis */
+  font-weight: 600; /* Use a bold weight */
+  color: #ffb400; /* Add a pop of color, optional */
 }
 
 /* Nav Links */
@@ -56,7 +59,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #007bff;
+  background: linear-gradient(90deg, #1e3c72, #2a5298); 
   list-style: none;
   padding: 10px;
   border-radius: 5px;
@@ -107,7 +110,7 @@
     top: 60px;
     left: 0;
     width: 100%;
-    background-color: #007bff;
+    background: linear-gradient(90deg, #1e3c72, #2a5298); 
     flex-direction: column;
     align-items: center;
     gap: 10px;

@@ -7,17 +7,25 @@ const SettingsAndHelp = ({ onClose }) => {
     localStorage.getItem("darkMode") === "true"
   );
 
+  // Handle dark mode toggle
+  const handleDarkModeToggle = () => {
+    setDarkMode(!darkMode);
+  };
+
+  // Apply dark mode to the body
   useEffect(() => {
-    // Apply dark mode class to the body
     if (darkMode) {
       document.body.classList.add("dark-mode");
     } else {
       document.body.classList.remove("dark-mode");
     }
-
-    // Save user preference to localStorage
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
+
+  // Redirect to email for support
+  const redirectToEmail = () => {
+    window.location.href = "mailto:ngangasam704@gmail.com";
+  };
 
   return (
     <div className="settings-overlay">
@@ -35,7 +43,7 @@ const SettingsAndHelp = ({ onClose }) => {
               <input
                 type="checkbox"
                 checked={darkMode}
-                onChange={() => setDarkMode(!darkMode)}
+                onChange={handleDarkModeToggle}
               />
               Enable Dark Mode
             </label>
@@ -46,7 +54,9 @@ const SettingsAndHelp = ({ onClose }) => {
         <div className="section">
           <h4>Need Help?</h4>
           <p>If you have any issues, feel free to reach out for assistance.</p>
-          <button className="help-button">Contact Support</button>
+          <button className="help-button" onClick={redirectToEmail}>
+            Contact Support
+          </button>
         </div>
       </div>
     </div>

@@ -91,7 +91,7 @@
   
   .cv-upgrade-container button[type="button"] {
     margin-top: 10px;
-    background: #123050;
+    background: linear-gradient(90deg, #1e3c72, #2a5298);
     color: white;
     border: none;
     border-radius: 5px;
@@ -99,7 +99,7 @@
   }
   
   .cv-upgrade-container button[type="button"]:hover {
-    background: #0056b3;
+    background: linear-gradient(90deg, #1e3c72, #2a5298);
   }
   /* Modal backdrop */
 .modal-backdrop {

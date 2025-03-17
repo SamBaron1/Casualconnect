@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBell,
+  faTrash,
+  faTrashAlt,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
 import "./JobseekerNotifications.css";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -48,6 +55,7 @@ const JobseekerNotifications = () => {
       };
     }
   }, []); // Empty dependency array ensures this runs only once
+
   const handleDeleteNotification = async (notificationId) => {
     try {
       await axios.delete(`${API_BASE_URL}/notifications/${notificationId}`);
@@ -63,7 +71,7 @@ const JobseekerNotifications = () => {
       console.error("User ID not found in localStorage");
       return;
     }
-  
+
     try {
       await axios.delete(`${API_BASE_URL}/notifications/user/${userId}`);
       setNotifications([]); // Clear all notifications from UI
@@ -71,18 +79,28 @@ const JobseekerNotifications = () => {
       console.error("Error deleting all notifications:", error);
     }
   };
-  
 
   return (
     <div className="notifications-container">
-      <h3>📩Notifications</h3>
-      <button onClick={handleDeleteAllNotifications} className="delete-all-btn">Delete All</button>🗑
+      <h3>
+        <FontAwesomeIcon icon={faBell} className="icon" /> Notifications
+      </h3>
+      <button onClick={handleDeleteAllNotifications} className="delete-all-btn">
+        <FontAwesomeIcon icon={faTrashAlt} className="icon" /> Delete All
+      </button>
       {notifications.length > 0 ? (
         notifications.map((note, index) => (
           <div key={index} className="notification-item">
-            <p>{note.message}</p>
+            <p>
+              <FontAwesomeIcon icon={faEnvelope} className="icon" /> {note.message}
+            </p>
             <small>{new Date(note.createdAt).toLocaleString()}</small>
-            <button onClick={() => handleDeleteNotification(note.id)}>Delete</button>🗑
+            <button
+              onClick={() => handleDeleteNotification(note.id)}
+              className="delete-btn"
+            >
+              <FontAwesomeIcon icon={faTrash} className="icon" /> Delete
+            </button>
           </div>
         ))
       ) : (

@@ -1,28 +1,26 @@
-/* Modal Overlay */
+/* General Overlay Styling */
 .settings-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Dark transparent background */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensures it appears above other elements */
+  z-index: 1000;
 }
 
-/* Modal Container */
+/* Settings Container */
 .settings-container {
-  background: white;
-  width: 90%;
-  max-width: 400px; /* Limits size on larger screens */
-  padding: 20px;
+  background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
   position: relative;
-  text-align: center;
-  animation: fadeIn 0.3s ease-in-out;
 }
 
 /* Close Button */
@@ -32,104 +30,124 @@
   right: 10px;
   background: none;
   border: none;
-  font-size: 20px;
   cursor: pointer;
-  color: #333;
+  font-size: 18px;
+  color: #666;
 }
 
 .close-btn:hover {
-  color: red;
+  color: #333;
 }
 
-/* Section Styling */
+/* Section Headings */
+.settings-container h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.settings-container h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* Settings Section */
 .section {
-  margin: 20px 0;
-  text-align: left;
+  margin-bottom: 20px;
 }
 
-/* Setting Items */
 .setting-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-  font-size: 16px;
+  margin-bottom: 15px;
 }
 
 .setting-item label {
+  font-size: 16px;
+  color: #555;
+  margin-left: 10px;
+}
+
+.setting-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
   cursor: pointer;
 }
 
-/* Help Button */
+/* Help Section */
 .help-button {
-  width: 100%;
-  background: #007bff;
-  color: white;
+  background-color: linear-gradient(90deg, #1e3c72, #2a5298);
+  color: #fff;
   border: none;
-  padding: 6px;
+  padding: 10px 20px;
   border-radius: 5px;
-  font-size: 16px;
   cursor: pointer;
-  margin-top: 10px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
 }
 
 .help-button:hover {
-  background: #0056b3;
-}
-/* Default light mode */
-body {
-  background-color: #ffffff;
-  color: #000000;
-  transition: background-color 0.3s, color 0.3s;
+  background-color: #0056b3;
 }
 
-/* Dark mode styles */
+/* Dark Mode Styling */
 body.dark-mode {
   background-color: #121212;
   color: #ffffff;
 }
 
-/* Optional: Dark mode styles for settings container */
-.dark-mode .settings-container {
-  background-color: #333;
+body.dark-mode .settings-container {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .settings-container h3,
+body.dark-mode .settings-container h4,
+body.dark-mode .settings-container p,
+body.dark-mode .settings-container label {
+  color: #ffffff;
+}
+
+body.dark-mode .close-btn {
+  color: #ccc;
+}
+
+body.dark-mode .close-btn:hover {
   color: #fff;
 }
 
-/* Dark mode for buttons */
-.dark-mode .help-button {
-  background-color: #444;
-  color: white;
-}
-
-.dark-mode .close-btn {
+body.dark-mode .help-button {
   background-color: #555;
-  color: white;
 }
 
-/* Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+body.dark-mode .help-button:hover {
+  background-color: #777;
 }
 
-/* Mobile Responsive */
-@media screen and (max-width: 480px) {
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
   .settings-container {
-    width: 95%;
     padding: 15px;
   }
 
-  .setting-item {
+  .settings-container h3 {
+    font-size: 20px;
+  }
+
+  .settings-container h4 {
+    font-size: 16px;
+  }
+
+  .setting-item label {
     font-size: 14px;
   }
 
   .help-button {
-    font-size: 10px;
+    font-size: 14px;
+    padding: 8px 16px;
   }
 }

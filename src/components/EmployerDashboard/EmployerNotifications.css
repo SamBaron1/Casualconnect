@@ -1,76 +1,138 @@
-
-/* EmployerNotifications.css */
-
-/* Container for notifications */
+/* General Notifications Container */
 .notifications-container {
-  max-height: 400px; /* Set a maximum height for the container */
-  overflow-y: auto; /* Enable vertical scrolling */
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  max-height: 500px; /* Set a max height for the container */
+  overflow-y: auto; /* Make the container scrollable */
 }
 
-/* Notification item */
+.notifications-container h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notifications-container h3 .icon {
+  font-size: 24px;
+  color: #007bff;
+}
+
+/* Delete All Button */
+.delete-all-btn {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.delete-all-btn:hover {
+  background-color: #c82333;
+}
+
+.delete-all-btn .icon {
+  font-size: 16px;
+}
+
+/* Notification Items */
 .notification-item {
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s ease;
 }
 
-/* Notification message */
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item:hover {
+  background-color: #f9f9f9;
+}
+
 .notification-item p {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
-}
-.notification-item button {
- background-color: #777;
- padding: 5px;
- font-size: 8px;
-}
-.delete-all-btn {
-  background-color: #777;
-  padding: 5px;
+  flex: 1;
 }
 
-/* Notification timestamp */
 .notification-item small {
-  display: block;
-  margin-top: 5px;
   font-size: 12px;
   color: #777;
+  margin-left: 10px;
 }
-.notifications-container h3 {
-  color: maroon;
+
+.notification-item button {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-/* No notifications message */
-.notifications-container > p {
-  text-align: center;
-  color: #888;
+
+.notification-item button:hover {
+  background-color: #e9ecef;
+}
+
+.notification-item button .icon {
   font-size: 14px;
 }
 
-/* Mobile responsiveness */
+/* No Notifications Message */
+.notifications-container > p {
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
   .notifications-container {
-    max-height: 300px; /* Adjust height for smaller screens */
-    padding: 8px;
+    padding: 15px;
+    max-height: 400px; /* Adjust height for mobile */
+  }
+
+  .notifications-container h3 {
+    font-size: 20px;
   }
 
   .notification-item {
-    padding: 8px;
-    margin-bottom: 8px;
-  }
-
-  .notification-item p {
-    font-size: 13px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 
   .notification-item small {
-    font-size: 11px;
+    margin-left: 0;
+  }
+
+  .notification-item button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
   }
 }

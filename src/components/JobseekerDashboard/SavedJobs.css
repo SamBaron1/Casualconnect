@@ -31,7 +31,7 @@
 
 /* Apply Button */
 .apply-button {
-  background: #007bff;
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
   color: white;
   border: none;
   padding: 8px 12px;

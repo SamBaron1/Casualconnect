@@ -47,8 +47,8 @@ textarea {
   resize: vertical;
 }
 
-button {
-  background: #007bff;
+.review-form-container button {
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
   color: white;
   padding: 12px;
   font-size: 16px;

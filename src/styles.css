@@ -39,7 +39,7 @@ main {
 
 /* Footer Container */
 .footer {
-  background-color: #333;
+  background: linear-gradient(90deg, #6f8cc2, #122546);
   color: #fff;
   padding: 20px;
   text-align: center;
