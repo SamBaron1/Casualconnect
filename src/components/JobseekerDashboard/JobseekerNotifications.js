@@ -3,7 +3,9 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import "./JobseekerNotifications.css";
 
-const socket = io("http://localhost:5000", {
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+const socket = io(API_BASE_URL.replace('/api', ''), {
   withCredentials: true,
   transports: ["websocket"],
 });
@@ -20,7 +22,7 @@ const JobseekerNotifications = () => {
           return;
         }
 
-        const response = await axios.get(`http://localhost:5000/api/notifications/${userId}`);
+        const response = await axios.get(`${API_BASE_URL}/notifications/${userId}`);
         setNotifications(response.data);
       } catch (error) {
         console.error("Error fetching notifications:", error);
@@ -48,7 +50,7 @@ const JobseekerNotifications = () => {
   }, []); // Empty dependency array ensures this runs only once
   const handleDeleteNotification = async (notificationId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/notifications/${notificationId}`);
+      await axios.delete(`${API_BASE_URL}/notifications/${notificationId}`);
       setNotifications(notifications.filter((n) => n.id !== notificationId)); // Remove from UI
     } catch (error) {
       console.error("Error deleting notification:", error);
@@ -63,7 +65,7 @@ const JobseekerNotifications = () => {
     }
   
     try {
-      await axios.delete(`http://localhost:5000/api/notifications/user/${userId}`);
+      await axios.delete(`${API_BASE_URL}/notifications/user/${userId}`);
       setNotifications([]); // Clear all notifications from UI
     } catch (error) {
       console.error("Error deleting all notifications:", error);

@@ -1,7 +1,12 @@
 import { io } from "socket.io-client";
 
 // Configure Socket.IO connection globally
-const socket = io("http://localhost:5000", {
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+// Adjust the base URL for Socket.IO by removing "/api" if it's present
+const socketBaseURL = API_BASE_URL.replace('/api', '');
+
+const socket = io(socketBaseURL, {
   transports: ['websocket', 'polling'],
   withCredentials: true,
   reconnectionAttempts: 5, // Limit reconnection attempts

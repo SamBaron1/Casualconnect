@@ -8,10 +8,11 @@ const JobSeekerReview = ({ jobseekerId }) => {
   const [rating, setRating] = useState(5);
   const [message, setMessage] = useState("");
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/reviews", {
+      await axios.post(`${API_BASE_URL}/reviews`, {
         employerName,
         jobseekerId,
         reviewText,

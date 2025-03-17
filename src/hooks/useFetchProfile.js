@@ -8,10 +8,10 @@ const useFetchProfile = (userId) => {
 
   useEffect(() => {
     if (!userId) return;
-
+  
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/users/${userId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/users/${userId}`);
         setProfile(response.data);
       } catch (err) {
         setError(err.message);
@@ -19,9 +19,10 @@ const useFetchProfile = (userId) => {
         setLoading(false);
       }
     };
-
+  
     fetchProfile();
   }, [userId]);
+  
 
   return { profile, loading, error };
 };

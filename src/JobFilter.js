@@ -8,16 +8,19 @@ const JobFilter = ({ setJobs }) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
-  const handleFilter = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/api/jobs", {
-        params: filters, // Send filters as query parameters
-      });
-      setJobs(response.data);  
-    } catch (error) {
-      console.error("Error fetching filtered jobs:", error);
-    }
-  };
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+const handleFilter = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/jobs`, {
+      params: filters, // Send filters as query parameters
+    });
+    setJobs(response.data);  
+  } catch (error) {
+    console.error("Error fetching filtered jobs:", error);
+  }
+};
+
 
   return (
     <div className="bg-white p-4 shadow-md rounded-xl w-full max-w-3xl mx-auto mt-4">

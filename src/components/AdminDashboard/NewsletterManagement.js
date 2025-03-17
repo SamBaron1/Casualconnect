@@ -9,6 +9,7 @@ const NewsletterManagement = () => {
   const [currentPage, setCurrentPage] = useState(1); // Current page
   const [subscribersPerPage] = useState(10); // Number of subscribers per page
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   // Fetch subscribers from the backend
   useEffect(() => {
     const token = localStorage.getItem("token"); // Retrieve token from localStorage
@@ -17,7 +18,7 @@ const NewsletterManagement = () => {
       return;
     }
 
-    fetch("http://localhost:5000/api/admin/newsletter", {
+    fetch(`${API_BASE_URL}/admin/newsletter`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -38,7 +39,7 @@ const NewsletterManagement = () => {
         console.error("Error fetching subscribers:", err.message);
         setError(err.message);
       });
-  }, []);
+  }, [API_BASE_URL]);
 
   // Add a subscriber
   const handleAddSubscriber = () => {
@@ -48,7 +49,7 @@ const NewsletterManagement = () => {
       return;
     }
 
-    fetch("http://localhost:5000/api/admin/newsletter", {
+    fetch(`${API_BASE_URL}/admin/newsletter`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -84,7 +85,7 @@ const NewsletterManagement = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/api/admin/newsletter/${email}`, {
+    fetch(`${API_BASE_URL}/admin/newsletter/${email}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -113,7 +114,7 @@ const NewsletterManagement = () => {
       return;
     }
 
-    fetch("http://localhost:5000/api/admin/newsletter/send", {
+    fetch(`${API_BASE_URL}/admin/newsletter/send`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

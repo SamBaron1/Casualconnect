@@ -29,6 +29,7 @@ function PostJob({ onClose }) {
     }));
   };
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -37,7 +38,7 @@ function PostJob({ onClose }) {
         employer_id: userId, // Set employerId correctly
       };
       console.log('Posting job:', jobData); // Debugging line
-      await axios.post("http://localhost:5000/api/jobs", jobData);
+      await axios.post(`${API_BASE_URL}/jobs`, jobData);
       alert("Job posted successfully!");
       setJob({
         title: "",

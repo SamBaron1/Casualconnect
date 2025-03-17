@@ -11,11 +11,12 @@ function ActiveJobs() {
 
   const userId = localStorage.getItem("userId"); // Assume userId is stored after login
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/employer/${userId}/jobs?page=${currentPage}&pageSize=${pageSize}`
+          `${API_BASE_URL}/employer/${userId}/jobs?page=${currentPage}&pageSize=${pageSize}`
         );
 
         setJobs(response.data.jobs);
@@ -27,7 +28,7 @@ function ActiveJobs() {
     };
 
     fetchJobs();
-  }, [userId, currentPage]); // Re-fetch jobs when currentPage changes
+  }, [userId, currentPage, API_BASE_URL]); // Re-fetch jobs when currentPage changes
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -36,7 +37,7 @@ function ActiveJobs() {
   };
   const handleDeleteJob = async (jobId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/employer/${userId}/jobs/${jobId}`);
+      await axios.delete(`${API_BASE_URL}/employer/${userId}/jobs/${jobId}`);
       setJobs(jobs.filter((job) => job.id !== jobId)); // Remove deleted job from UI
     } catch (error) {
       console.error("Error deleting job:", error);

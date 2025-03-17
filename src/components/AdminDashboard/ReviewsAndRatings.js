@@ -8,6 +8,7 @@ const ReviewsAndRatings = () => {
   const [currentPage, setCurrentPage] = useState(1); // Current page
   const [reviewsPerPage] = useState(10); // Number of reviews per page
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   // Fetch all reviews from the backend
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -16,7 +17,7 @@ const ReviewsAndRatings = () => {
       return;
     }
 
-    fetch("http://localhost:5000/api/reviews", {
+    fetch(`${API_BASE_URL}/reviews`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -38,7 +39,7 @@ const ReviewsAndRatings = () => {
         console.error("Error fetching reviews:", err.message);
         setError(err.message);
       });
-  }, []);
+  }, [API_BASE_URL]);
 
   // Filter reviews based on search query
   const filteredReviews = searchQuery
@@ -79,7 +80,7 @@ const ReviewsAndRatings = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/api/reviews/${reviewId}`, {
+    fetch(`${API_BASE_URL}/reviews/${reviewId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

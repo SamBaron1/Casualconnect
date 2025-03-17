@@ -13,12 +13,13 @@ const LoginForm = ({ setShowLogin }) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+ 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -56,7 +57,7 @@ navigate(dashboardRoute);
     if (!email) return;
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/send-reset-link", {
+      const response = await fetch(`${API_BASE_URL}/auth/send-reset-link`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

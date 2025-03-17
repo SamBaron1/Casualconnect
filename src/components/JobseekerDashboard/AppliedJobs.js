@@ -9,10 +9,11 @@ const AppliedJobs = () => {
   const jobsPerPage = 5; // Adjust as needed
   const userId = localStorage.getItem("userId");
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchAppliedJobs = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/jobseeker/${userId}/applications`);
+        const response = await axios.get(`${API_BASE_URL}/jobseeker/${userId}/applications`);
         setAppliedJobs(response.data);
       } catch (error) {
         console.error("Error fetching applied jobs:", error);
@@ -20,7 +21,7 @@ const AppliedJobs = () => {
       }
     };
     fetchAppliedJobs();
-  }, [userId]);
+  }, [userId, API_BASE_URL]);
 
   // 🔹 Pagination Logic
   const indexOfLastJob = currentPage * jobsPerPage;

@@ -9,9 +9,10 @@ const DashboardOverview = () => {
     newsletterSubscribers: 0,
   });
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const token = localStorage.getItem("token"); // Assuming the token is stored in localStorage
-    fetch("http://localhost:5000/api/admin/stats", {
+    fetch(`${API_BASE_URL}/admin/stats`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`, // Add the token here
@@ -31,7 +32,7 @@ const DashboardOverview = () => {
       .catch((err) => {
         console.error("Error fetching stats:", err.message);
       });
-  }, []);
+  }, [API_BASE_URL]);
   
   
 

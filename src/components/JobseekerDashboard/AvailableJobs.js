@@ -9,12 +9,14 @@ const AvailableJobs = () => {
   const jobsPerPage = 5; // Adjust this to control jobs per page
   const userId = localStorage.getItem("userId");
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        await axios.get(`http://localhost:5000/api/jobseeker/${userId}/info`);
+        await axios.get(`${API_BASE_URL}/jobseeker/${userId}/info`);
 
-        const jobsResponse = await axios.get(`http://localhost:5000/api/jobseeker/${userId}/jobs`);
+        const jobsResponse = await axios.get(`${API_BASE_URL}/jobseeker/${userId}/jobs`);
         setJobs(jobsResponse.data);
       } catch (error) {
         console.error("Error fetching jobs:", error);
@@ -22,11 +24,11 @@ const AvailableJobs = () => {
       }
     };
     fetchJobs();
-  }, [userId]);
+  }, [userId, API_BASE_URL]);
 
   const handleApply = async (jobId) => {
     try {
-      await axios.post(`http://localhost:5000/api/jobseeker/${userId}/apply`, { jobId });
+      await axios.post(`${API_BASE_URL}/jobseeker/${userId}/apply`, { jobId });
       alert("Application submitted successfully!");
     } catch (error) {
       console.error("Error applying for job:", error);
@@ -36,7 +38,7 @@ const AvailableJobs = () => {
 
   const handleSave = async (jobId) => {
     try {
-      await axios.post(`http://localhost:5000/api/jobseeker/${userId}/save`, { jobId });
+      await axios.post(`${API_BASE_URL}/jobseeker/${userId}/save`, { jobId });
       alert("Job saved successfully!");
     } catch (error) {
       console.error("Error saving job:", error);

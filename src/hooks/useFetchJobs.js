@@ -7,19 +7,20 @@ const useFetchJobs = () => {
   const [error, setError] = useState(null);
   const [retry, setRetry] = useState(0); // State to track retries
 
-  const fetchJobs = useCallback(async () => {
-    setLoadingJobs(true);
-    setError(null); // Reset error before fetching
-    try {
-      const response = await axios.get("http://localhost:5000/api/jobs");
-      setJobs(response.data);
-    } catch (error) {
-      console.error("Error fetching jobs:", error);
-      setError(error.response?.data?.error || "Failed to load jobs. Please try again.");
-    } finally {
-      setLoadingJobs(false);
-    }
-  }, []);
+const fetchJobs = useCallback(async () => {
+  setLoadingJobs(true);
+  setError(null); // Reset error before fetching
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/jobs`);
+    setJobs(response.data);
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    setError(error.response?.data?.error || "Failed to load jobs. Please try again.");
+  } finally {
+    setLoadingJobs(false);
+  }
+}, []);
+
   
   useEffect(() => {
     fetchJobs();

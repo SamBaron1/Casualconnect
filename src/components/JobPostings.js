@@ -28,10 +28,11 @@ const JobPostings = () => {
       socket.off("newJob");
     };
   }, []);
-
+ 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const handleApply = async (jobId) => {
     try {
-      await axios.post(`http://localhost:5000/api/jobseeker/${userId}/apply`, { jobId });
+      await axios.post(`${API_BASE_URL}/jobseeker/${userId}/apply`, { jobId });
       alert("Application submitted successfully!");
       socket.emit("jobApplication", { userId, jobId });
     } catch (error) {
@@ -42,7 +43,7 @@ const JobPostings = () => {
 
   const handleSave = async (jobId) => {
     try {
-      await axios.post(`http://localhost:5000/api/jobseeker/${userId}/save`, { jobId });
+      await axios.post(`${API_BASE_URL}/jobseeker/${userId}/save`, { jobId });
       alert("Job saved successfully!");
     } catch (error) {
       console.error("Error saving job:", error);

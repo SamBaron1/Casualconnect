@@ -7,10 +7,11 @@ const UserManagement = () => {
   const [currentPage, setCurrentPage] = useState(1); // Current page
   const [usersPerPage] = useState(10); // Number of users per page
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   // Fetch all users from the backend
   useEffect(() => {
     const token = localStorage.getItem("token"); // Retrieve token from localStorage
-    fetch("http://localhost:5000/api/admin/users", {
+    fetch(`${API_BASE_URL}/admin/users`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`, // Include token in Authorization header
@@ -32,7 +33,7 @@ const UserManagement = () => {
         }
       })
       .catch((err) => console.error("Error fetching users:", err));
-  }, []);
+  }, [API_BASE_URL]);
 
   // Search functionality
   const handleSearch = (e) => {
@@ -77,7 +78,7 @@ const UserManagement = () => {
       return;
     }
 
-    fetch(`http://localhost:5000/api/admin/users/${userId}`, {
+    fetch(`${API_BASE_URL}/admin/users/${userId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

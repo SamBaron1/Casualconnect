@@ -6,10 +6,11 @@ const EmployerRatings = () => {
   const [reviews, setReviews] = useState([]);
   const [averageRatings, setAverageRatings] = useState({});
 
+  
   useEffect(() => {
     const fetchReviews = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/reviews");
+      try {     
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/reviews`);
         setReviews(response.data);
 
         const employerNames = [...new Set(response.data.map(review => review.employerName))];
@@ -23,7 +24,7 @@ const EmployerRatings = () => {
       try {
         const ratings = await Promise.all(
           employerNames.map(async (name) => {
-            const response = await axios.get(`http://localhost:5000/api/reviews/employer/${name}/average`);
+            const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/reviews/employer/${name}/average`);
             return { employerName: name, averageRating: response.data.averageRating };
           })
         );

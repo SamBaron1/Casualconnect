@@ -27,3 +27,4 @@ frontend/node_modules/
 build/
 dist/
 /database.sql
+REACT_APP_API_BASE_URL=https://16kxld3c-5000.inc1.devtunnels.ms/api

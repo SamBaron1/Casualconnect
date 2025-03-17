@@ -16,18 +16,16 @@ import EmployerRatings from "./EmployerRatings";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userRole, setUserRole] = useState(""); // Track user role
+  const [userRole] = useState(""); // Track user role
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [jobs, setJobs] = useState([]); // State to store filtered jobs
 
- 
-
   useEffect(() => {
-    const socket = io("http://localhost:5000", {
+    const socket = io(process.env.REACT_APP_API_BASE_URL, {
       withCredentials: true,
     });
-
+  
     // Request notification permission
     if (Notification.permission !== "granted") {
       Notification.requestPermission().then((permission) => {
@@ -38,7 +36,7 @@ const App = () => {
         }
       });
     }
-
+  
     // Listen for notifications from the server
     socket.on("receiveNotification", (notification) => {
       console.log("Notification received:", notification);
@@ -46,27 +44,28 @@ const App = () => {
         new Notification(notification.message);
       }
     });
-
+  
     // Cleanup on unmount
     return () => {
       socket.off("receiveNotification");
       socket.disconnect();
     };
   }, []);
-
+  
   useEffect(() => {
     // Fetch all jobs initially
     const fetchJobs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/jobs");
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/jobs`);
         setJobs(response.data);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
     };
-
+  
     fetchJobs();
   }, []);
+  
 
   const handleLoginClick = () => {
     setShowLogin(true);

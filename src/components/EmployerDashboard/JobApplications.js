@@ -8,21 +8,22 @@ function JobApplications() {
   const applicationsPerPage = 5; // Number of applications per page
   const userId = localStorage.getItem("userId"); // Assume userId is stored after login
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/employer/${userId}/applications`);
+        const response = await axios.get(`${API_BASE_URL}/employer/${userId}/applications`);
         setApplications(response.data);
       } catch (error) {
         console.error("Error fetching applications:", error);
       }
     };
     fetchApplications();
-  }, [userId]);
+  }, [userId, API_BASE_URL]);
 
   const handleUpdateStatus = async (applicationId, status) => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/employer/${userId}/applications/${applicationId}`, { status });
+      const response = await axios.post(`${API_BASE_URL}/employer/${userId}/applications/${applicationId}`, { status });
       setApplications(applications.map(app => app.id === applicationId ? { ...app, status: response.data.status } : app));
       setApplications((prev) =>
         prev.map((app) =>

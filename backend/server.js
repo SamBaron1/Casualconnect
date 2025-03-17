@@ -14,10 +14,11 @@ const app = express();
 
 
 
-// Enable CORS for specific origins
+// Enable CORS for specific origins from environment variables
+const allowedOrigins = (process.env.CORS_ORIGINS || "").split(","); // Read allowed origins from .env
 app.use(
   cors({
-    origin: "*", // Allow all origins
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
     credentials: true, // Enable credentials
   })
