@@ -27,16 +27,17 @@ const App = () => {
     });
   
     // Request notification permission
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          console.log("Notification permission granted.");
-        } else {
-          console.log("Notification permission denied.");
+    if (Notification.permission === "granted") {
+      socket.on("receiveNotification", (notification) => {
+        console.log("Notification received:", notification);
+        try {
+          // Ensure the notification object is properly passed here
+          new Notification(notification.message);
+        } catch (error) {
+          console.error("Error displaying notification:", error);
         }
       });
     }
-  
     // Listen for notifications from the server
     socket.on("receiveNotification", (notification) => {
       console.log("Notification received:", notification);
@@ -65,7 +66,13 @@ const App = () => {
   
     fetchJobs();
   }, []);
-  
+ useEffect(() => {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js")
+      .then((registration) => console.log("Service Worker registered:", registration))
+      .catch((error) => console.error("Service Worker registration failed:", error));
+  }
+}, []);
 
   const handleLoginClick = () => {
     setShowLogin(true);

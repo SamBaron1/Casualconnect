@@ -25,7 +25,8 @@
     "nodemailer": "^6.10.0",
     "sequelize": "^6.37.5",
     "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.1",
+    "web-push": "^3.6.7"
   },
   "type": "commonjs",
   "description": ""
