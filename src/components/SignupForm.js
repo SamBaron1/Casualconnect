@@ -9,9 +9,7 @@ const SignupForm = ({ setShowSignUp }) => {
     name: "",
     email: "",
     companyName: "",
-    position: "",
     location: "",
-    companySize: "",
     desiredJob: "",
     password: "",
   });
@@ -163,15 +161,6 @@ const SignupForm = ({ setShowSignUp }) => {
                   />
                 </div>
                 <div>
-                  <label>Position:</label>
-                  <input
-                    type="text"
-                    name="position"
-                    value={formData.position}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div>
                   <label>Location:</label>
                   <input
                     type="text"
@@ -180,15 +169,7 @@ const SignupForm = ({ setShowSignUp }) => {
                     onChange={handleChange}
                   />
                 </div>
-                <div>
-                  <label>Company Size:</label>
-                  <input
-                    type="text"
-                    name="companySize"
-                    value={formData.companySize}
-                    onChange={handleChange}
-                  />
-                </div>
+
               </>
             )}
             {userType === "jobseeker" && (

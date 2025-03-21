@@ -5,11 +5,13 @@ let io; // Declare Socket.IO globally
 const initializeSocket = (server) => {
   io = socketIo(server, {
     cors: {
-      origin: (process.env.CORS_ORIGINS || "").split(","), // Read allowed origins from .env
-      methods: ["GET", "POST"], // Specify allowed HTTP methods
-      credentials: true, // Enable credentials
+      origin: "http://localhost:3000", // Frontend origin
+      methods: ["GET", "POST"],        // Allowed HTTP methods
+      credentials: true,               // Allow credentials (cookies, headers, etc.)
     },
   });
+  
+  
 
   io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);

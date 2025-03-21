@@ -1,20 +1,18 @@
 import { io } from "socket.io-client";
 
-// Configure Socket.IO connection globally
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-// Adjust the base URL for Socket.IO by removing "/api" if it's present
-const socketBaseURL = API_BASE_URL.replace('/api', '');
-
-const socket = io(socketBaseURL, {
-  transports: ['websocket', 'polling'],
-  withCredentials: true,
-  reconnectionAttempts: 5, // Limit reconnection attempts
-  reconnectionDelay: 1000, // Delay between retries
+const socket = io("http://localhost:5000", {
+  transports: ["websocket"], // Use WebSocket transport directly
+  withCredentials: true,     // Include credentials for cross-origin requests
+  reconnectionAttempts: 5,   // Attempt to reconnect 5 times
+  reconnectionDelay: 1000,   // 1-second delay between retries
 });
 
 socket.on("connect", () => {
   console.log(`Connected to Socket.IO server with ID: ${socket.id}`);
+});
+
+socket.on("connect_error", (error) => {
+  console.error("WebSocket connection error:", error.message);
 });
 
 socket.on("notification", (data) => {

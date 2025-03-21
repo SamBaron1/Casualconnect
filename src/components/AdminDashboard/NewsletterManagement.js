@@ -49,7 +49,7 @@ const NewsletterManagement = () => {
       return;
     }
 
-    fetch(`${API_BASE_URL}/admin/newsletter`, {
+    fetch(`${API_BASE_URL}/admin/subscribe`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

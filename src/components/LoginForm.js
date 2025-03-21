@@ -53,28 +53,29 @@ navigate(dashboardRoute);
   };
 
   const handleForgotPassword = async () => {
-    const email = prompt("Please enter your email address:");
-    if (!email) return;
-
+    const email = prompt("Please enter your email address:"); // Prompt user for email
+    if (!email) return; // Ensure email is provided
+  
     try {
       const response = await fetch(`${API_BASE_URL}/auth/send-reset-link`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email }), // Ensure email is included here
       });
       const data = await response.json();
-
+  
       if (!response.ok) {
         alert(data.message || "An error occurred. Please try again.");
         return;
       }
-
+  
       alert(data.message);
     } catch (error) {
       console.error("Error:", error);
       alert("An unexpected error occurred. Please try again.");
     }
   };
+  
 
   return (
     <div className="modal-content">

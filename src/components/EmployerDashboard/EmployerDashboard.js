@@ -27,32 +27,36 @@ const EmployerDashboard = () => {
 
       {/* Middle Section */}
       <div className="employer-middle-section">
-        <ActiveJobs />
-        <JobApplications />
+        <div className="active-jobs-section">
+          <ActiveJobs />
+        </div>
+        <div className="job-applications-section">
+          <JobApplications />
+        </div>
+
+        {/* Footer Buttons */}
+        <div className="employer-middle-footer">
+          <button className="btn footer-btn" onClick={togglePostJob}>
+            <i className="fas fa-plus-circle"></i> Post a Job
+          </button>
+          <button className="btn footer-btn" onClick={toggleSettings}>
+            <i className="fas fa-cog"></i> Settings
+          </button>
+          <button className="btn footer-btn" onClick={toggleHelp}>
+            <i className="fas fa-question-circle"></i> Help
+          </button>
+          <Link to="/logout">
+            <button className="btn footer-btn logout">
+              <i className="fas fa-sign-out-alt"></i> Exit
+            </button>
+          </Link>
+        </div>
       </div>
 
       {/* Bottom Section */}
       <div className="employer-bottom-section">
         {/* Add any additional content here */}
       </div>
-
-      {/* Footer Section */}
-      <footer className="employer-dashboard-footer">
-        <button className="btn footer-btn" onClick={togglePostJob}>
-          <i className="fas fa-plus-circle"></i> Post a Job
-        </button>
-        <button className="btn footer-btn" onClick={toggleSettings}>
-          <i className="fas fa-cog"></i> Settings
-        </button>
-        <button className="btn footer-btn" onClick={toggleHelp}>
-          <i className="fas fa-question-circle"></i> Help
-        </button>
-        <Link to="/logout">
-          <button className="btn footer-btn logout">
-            <i className="fas fa-sign-out-alt"></i> Exit
-          </button>
-        </Link>
-      </footer>
 
       {/* Conditional Rendering */}
       {showPostJob && (

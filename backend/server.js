@@ -14,15 +14,23 @@ const app = express();
 
 
 
-// Enable CORS for specific origins from environment variables
-const allowedOrigins = (process.env.CORS_ORIGINS || "").split(","); // Read allowed origins from .env
+const allowedOrigins = (process.env.CORS_ORIGINS || "").split(","); // Read comma-separated origins from .env
+console.log("Allowed origins:", allowedOrigins);
+
 app.use(
   cors({
-    origin: allowedOrigins,
-    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
-    credentials: true, // Enable credentials
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); // Allow the request
+      } else {
+        callback(new Error("Not allowed by CORS")); // Block the request
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
 );
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

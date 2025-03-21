@@ -29,12 +29,6 @@ const User = sequelize.define('User', {
   companyName: {
     type: DataTypes.STRING,
   },
-  position: {
-    type: DataTypes.STRING,
-  },
-  companySize: {
-    type: DataTypes.STRING,
-  },
   desiredJob: {
     type: DataTypes.STRING,
   },

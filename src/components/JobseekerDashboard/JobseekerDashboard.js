@@ -54,9 +54,15 @@ const JobseekerDashboard = () => {
 
       {/* Middle Section */}
       <div className="middle-section">
-        <AvailableJobs />
-        <AppliedJobs />
-        <SavedJobs />
+        <div className="grid-item">
+          <AvailableJobs />
+        </div>
+        <div className="grid-item">
+          <AppliedJobs />
+        </div>
+        <div className="grid-item">
+          <SavedJobs />
+        </div>
       </div>
 
       {/* CV Upgrade Section */}
