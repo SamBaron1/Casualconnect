@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { User, Job, Application, SavedJob, Notification } = require('../models');
-const { sendNotification } = require("../config/socket");
+const { User, Job, Application, Notification, SavedJob, PushSubscription } = require('../models'); // Include PushSubscription model
+const { sendNotification } = require("../config/socket"); // For realtime notifications
+const webPush = require("web-push"); // Import web-push for push notifications
 
 
-// Log models to verify they are imported correctly
-console.log('Models:', { User, Job, Application, SavedJob });
 
 // GET jobseeker info including location
 router.get('/:userId/info', async (req, res) => {
@@ -67,23 +66,27 @@ router.get('/:userId/applications', async (req, res) => {
   }
 });
 
+
+
 // Apply for a job
 router.post('/:userId/apply', async (req, res) => {
   const { userId } = req.params;
   const { jobId } = req.body;
 
   try {
+    // Verify user is a jobseeker
     const user = await User.findByPk(userId);
     if (!user || user.role !== 'jobseeker') {
       return res.status(403).json({ error: 'Only job seekers can apply for jobs' });
     }
 
+    // Check if the job exists
     const job = await Job.findByPk(jobId);
     if (!job) {
       return res.status(404).json({ error: 'Job not found' });
     }
 
-    // Check if the jobseeker has already applied for this job
+    // Ensure the jobseeker hasn't already applied
     const existingApplication = await Application.findOne({
       where: { job_id: jobId, user_id: userId },
     });
@@ -91,8 +94,8 @@ router.post('/:userId/apply', async (req, res) => {
       return res.status(400).json({ error: 'You have already applied for this job' });
     }
 
-    const employerId = job.employer_id; // Retrieve employer ID from the job
-
+    // Create the application
+    const employerId = job.employer_id; // Get employer ID from job
     const application = await Application.create({
       job_id: jobId,
       user_id: userId,
@@ -100,9 +103,9 @@ router.post('/:userId/apply', async (req, res) => {
       status: 'Pending',
     });
 
-    // Update application count
-    console.log(`Incrementing application count for job: ${job.title}`);
+    // Increment job application count
     await job.increment('applicationCount');
+    console.log(`Incremented application count for job: ${job.title}`);
 
     // Retrieve employer details
     const employer = await User.findByPk(employerId);
@@ -110,9 +113,8 @@ router.post('/:userId/apply', async (req, res) => {
       return res.status(500).json({ error: 'Employer not found' });
     }
 
-    // Notification message
-    const notificationMessage = `${user.name} from ${user.location} has applied for your job "${job.title}".
-     Applicant will receive your email if you accept their application and respond with their updated CV!`;
+    // Create notification message
+    const notificationMessage = `${user.name} from ${user.location} has applied for your job "${job.title}". Applicant will receive your WhatsApp Number if you accept their application and respond with their updated CV!`;
 
     // Save notification in the database
     await Notification.create({
@@ -122,18 +124,40 @@ router.post('/:userId/apply', async (req, res) => {
       message: notificationMessage,
     });
 
-    // Send real-time notification
-    console.log(typeof sendNotification); // Should print 'function'
-    sendNotification(employer.id, {
+    // Send realtime notification via Socket.IO
+    await sendNotification(employer.id, {
       title: "New Job Application",
       message: notificationMessage,
       jobId: job.id,
     });
 
-    console.log(`Notification sent to Employer ${employer.email}: ${notificationMessage}`);
+    console.log(`Realtime notification sent to Employer ${employer.email}: ${notificationMessage}`);
 
-    // Return the application data and a success message
+    // Fetch employer's push subscription
+    const subscription = await PushSubscription.findOne({ where: { userId: employer.id } });
+    if (subscription) {
+      const payload = JSON.stringify({
+        title: "New Job Application",
+        message: notificationMessage,
+      });
+
+      // Send push notification via web-push
+      await webPush.sendNotification({
+        endpoint: subscription.endpoint,
+        keys: {
+          p256dh: subscription.publicKey,
+          auth: subscription.authKey,
+        },
+      }, payload).catch((error) => {
+        console.error("Error sending push notification:", error);
+      });
+    } else {
+      console.warn(`No push subscription found for Employer ID: ${employer.id}`);
+    }
+
+    // Respond with success
     res.status(201).json({ message: "Job application submitted successfully", application });
+
   } catch (error) {
     console.error('Error applying for job:', error);
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { subscribeToNewsletter } from '../services/api';
 import './NewsLetter.css';
 
-
 const Newsletter = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -34,7 +33,7 @@ const Newsletter = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button type="submit">Notify Me</button>
+        <button type="submit" className="newsletter-button">Notify Me</button>
       </form>
       {message && <p className="message">{message}</p>}
     </section>

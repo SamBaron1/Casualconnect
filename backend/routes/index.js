@@ -7,6 +7,7 @@ const employerRoutes = require('./employerRoutes');
 const newsletterRoutes = require('./newsletterRoutes');
 const profileRoutes = require('./profileRoutes'); 
 const AdminRoute = require('./AdminRoute');
+const pushNotificationRoutes = require('./pushNotificationRoutes'); 
 
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.use('/employer', employerRoutes);   // Distinct path for employer routes
 router.use('/admin/newsletter', newsletterRoutes);
 router.use('/users', profileRoutes);
 router.use('/admin', AdminRoute);
+router.use('/push', pushNotificationRoutes);
 
 module.exports = router; // Ensure this exports the router correctly

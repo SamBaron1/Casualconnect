@@ -76,6 +76,10 @@
   transition: background-color 0.3s ease;
   margin-left: 10px;
 }
+.notification-item.new {
+  background-color: #07f54e; /* Light blue for new notifications */
+  border-left-color: #eafa0a; /* Highlight border for new notifications */
+}
 
 .notification-item button:hover {
   background-color: #e9ecef;

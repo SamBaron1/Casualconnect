@@ -1,51 +1,63 @@
 const socketIo = require("socket.io");
 const webPush = require("web-push");
+const PushSubscription = require("../models/pushSubscription"); // Import PushSubscription model
 
-let io; // Declare Socket.IO globally
-const subscriptions = new Map(); // Store push subscriptions (userId -> subscription)
+let io;
 
 // Initialize VAPID keys for web-push
 webPush.setVapidDetails(
-  "mailto:samuelng0001@gmail.com", // Replace with your email
-  process.env.VAPID_PUBLIC_KEY,   // Add this to your .env
-  process.env.VAPID_PRIVATE_KEY   // Add this to your .env
+  "mailto:samuelng0001@gmail.com",
+  process.env.VAPID_PUBLIC_KEY,
+  process.env.VAPID_PRIVATE_KEY
 );
 
 const initializeSocket = (server) => {
+  const corsOrigins = process.env.CORS_ORIGINS
+    ? process.env.CORS_ORIGINS.split(",") // Split by commas to create an array
+    : ["http://localhost:3000"]; // Default origin if not set
+
   io = socketIo(server, {
     cors: {
-      origin: "http://localhost:3000", // Frontend origin
-      methods: ["GET", "POST"],        // Allowed HTTP methods
-      credentials: true,               // Allow credentials (cookies, headers, etc.)
+      origin: corsOrigins, // Pass the array of allowed origins
+      methods: ["GET", "POST"],
+      credentials: true,
     },
   });
+
 
   io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    // Store push subscription sent by the frontend
-    socket.on("subscribe", (subscription) => {
-      console.log(`Push subscription received from user ${socket.id}:`, subscription);
+    // Store push subscription from frontend
+    socket.on("subscribe", async (subscription) => {
+  console.log(`Push subscription received from user ${socket.id}:`, subscription);
 
-      // Store subscription in memory (you can save it to a database if needed)
-      subscriptions.set(socket.id, subscription);
+  try {
+    const userId = subscription.userId;
+    if (!userId || !subscription.endpoint || !subscription.keys) {
+      throw new Error("Missing required subscription fields.");
+    }
 
-      // Send a test notification
-      const payload = JSON.stringify({
-        title: "Welcome!",
-        message: "Thanks for subscribing to notifications.",
-      });
-      sendPushNotification(subscription, payload);
+    await PushSubscription.upsert({
+      userId: userId,
+      endpoint: subscription.endpoint,
+      publicKey: subscription.keys.p256dh,
+      authKey: subscription.keys.auth,
     });
 
-    // User joins a room
+    console.log("Push subscription stored successfully.");
+  } catch (error) {
+    console.error("Error storing push subscription:", error.message);
+  }
+});
+
+    // Handle user joining a room
     socket.on("joinRoom", (room) => {
       socket.join(room);
       console.log(`User joined room: ${room}`);
-      socket.emit("notification", { message: "This is a test notification!" });
     });
 
-    // User leaves a room
+    // Handle user leaving a room
     socket.on("leaveRoom", (room) => {
       socket.leave(room);
       console.log(`User left room: ${room}`);
@@ -54,9 +66,6 @@ const initializeSocket = (server) => {
     // Handle user disconnect
     socket.on("disconnect", () => {
       console.log(`User disconnected: ${socket.id}`);
-
-      // Remove subscription when user disconnects
-      subscriptions.delete(socket.id);
     });
   });
 
@@ -64,22 +73,41 @@ const initializeSocket = (server) => {
 };
 
 // Function to send push notifications using web-push
-const sendPushNotification = (subscription, payload) => {
-  webPush
-    .sendNotification(subscription, payload)
-    .then(() => console.log("Push notification sent successfully."))
-    .catch((error) => console.error("Error sending push notification:", error));
+const sendPushNotification = async (userId, payload) => {
+  try {
+    // Fetch the user's push subscription from the database
+    const subscription = await PushSubscription.findOne({ where: { userId } });
+    if (!subscription) {
+      console.warn(`No push subscription found for user ID: ${userId}`);
+      return;
+    }
+
+    // Send push notification
+    await webPush.sendNotification({
+      endpoint: subscription.endpoint,
+      keys: {
+        p256dh: subscription.publicKey,
+        auth: subscription.authKey,
+      },
+    }, JSON.stringify(payload));
+    console.log("Push notification sent successfully.");
+  } catch (error) {
+    console.error("Error sending push notification:", error);
+  }
 };
 
-// Function to send real-time notifications via Socket.IO
-const sendNotification = (userId, notification) => {
+// Function to send real-time notifications via Socket.IO and push notifications
+const sendNotification = async (userId, notification) => {
   if (!io) {
     console.error("Socket.IO instance is not initialized!");
     return;
   }
 
-  console.log(`Sending notification to user_${userId}:`, notification);
+  // Send realtime notification
   io.to(`user_${userId}`).emit("notification", notification);
+
+  // Send push notification
+  await sendPushNotification(userId, notification); // Include push notification logic
 };
 
 module.exports = { initializeSocket, sendNotification };

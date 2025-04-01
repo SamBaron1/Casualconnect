@@ -1,82 +1,80 @@
-/* Newsletter.css */
 .newsletter {
-    padding: 20px;
-    background: linear-gradient(90deg, #1e3c72, #2a5298);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    
-    margin: 0 auto;
-    text-align: center;
+  padding: 20px;
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.newsletter h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.newsletter p {
+  font-size: 2rem;
+  font: optional;
+  color: #ffff;
+  margin-bottom: 20px;
+}
+
+.newsletter form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.newsletter input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.newsletter input:focus {
+  border-color: #ff0000;
+}
+
+.newsletter button.newsletter-button {
+  padding: 10px;
+  background-color: #ebae20; /* Your desired color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.newsletter button.newsletter-button:hover {
+  background-color: #e6a200; /* Slightly darker shade for hover */
+}
+
+.newsletter .message {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #fffb12; /* Green for success messages */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .newsletter {
+    padding: 15px;
   }
-  
+
   .newsletter h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 1.3rem;
   }
-  
+
   .newsletter p {
-    font-size: 2rem;
-    font: optional;
-    color: #ffff;
-    margin-bottom: 20px;
+    font-size: 0.8rem;
   }
-  
-  .newsletter form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+
+  .newsletter input,
+  .newsletter button.newsletter-button {
+    font-size: 0.8rem;
   }
-  
-  .newsletter input {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    outline: none;
-  }
-  
-  .newsletter input:focus {
-    border-color: #007bff;
-  }
-  
-  .newsletter button {
-    padding: 10px;
-    background-color: #ffb400;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .newsletter button:hover {
-    background-color: #0056b3;
-  }
-  
-  .newsletter .message {
-    margin-top: 10px;
-    font-size: 0.9rem;
-    color: #fffb12; /* Green for success messages */
-  }
-  
-  /* Mobile Responsiveness */
-  @media (max-width: 480px) {
-    .newsletter {
-      padding: 15px;
-    }
-  
-    .newsletter h2 {
-      font-size: 1.3rem;
-    }
-  
-    .newsletter p {
-      font-size: 0.8rem;
-    }
-  
-    .newsletter input,
-    .newsletter button {
-      font-size: 0.8rem;
-    }
-  }
+}

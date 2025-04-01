@@ -21,37 +21,58 @@ const App = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [jobs, setJobs] = useState([]); // State to store filtered jobs
 
-  useEffect(() => {
-    const socket = io(process.env.REACT_APP_API_BASE_URL, {
-      withCredentials: true,
-    });
+
+    useEffect(() => {
+      const socket = io(process.env.REACT_APP_API_BASE_URL, {
+        withCredentials: true,
+      });
   
-    // Request notification permission
-    if (Notification.permission === "granted") {
+      // Request notification permission
+      if (Notification.permission === "default") {
+        Notification.requestPermission().catch((error) => {
+          console.error("Notification permission request failed:", error);
+        });
+      }
+  
+      // Listen for notifications from the server
       socket.on("receiveNotification", (notification) => {
         console.log("Notification received:", notification);
-        try {
-          // Ensure the notification object is properly passed here
-          new Notification(notification.message);
-        } catch (error) {
-          console.error("Error displaying notification:", error);
+  
+        if (Notification.permission === "granted") {
+          try {
+            new Notification(notification.title, {
+              body: notification.message,
+              icon: "/jt3.JPG", // Add an icon for visual appeal
+            });
+          } catch (error) {
+            console.error("Error displaying notification:", error);
+          }
+        } else {
+          console.warn("Notification permission not granted!");
         }
       });
-    }
-    // Listen for notifications from the server
-    socket.on("receiveNotification", (notification) => {
-      console.log("Notification received:", notification);
-      if (Notification.permission === "granted") {
-        new Notification(notification.message);
-      }
-    });
   
-    // Cleanup on unmount
-    return () => {
-      socket.off("receiveNotification");
-      socket.disconnect();
-    };
-  }, []);
+      // Cleanup on unmount
+      return () => {
+        socket.off("receiveNotification");
+        socket.disconnect();
+      };
+    }, []);
+  
+   // app.js
+
+function registerServiceWorker() {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js")
+      .then((registration) => console.log("Service Worker registered:", registration))
+      .catch((error) => console.error("Service Worker registration failed:", error));
+  } else {
+    console.error("Service Worker is not supported in this browser.");
+  }
+}
+
+// Register the Service Worker once
+registerServiceWorker();
   
   useEffect(() => {
     // Fetch all jobs initially
@@ -66,13 +87,6 @@ const App = () => {
   
     fetchJobs();
   }, []);
- useEffect(() => {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js")
-      .then((registration) => console.log("Service Worker registered:", registration))
-      .catch((error) => console.error("Service Worker registration failed:", error));
-  }
-}, []);
 
   const handleLoginClick = () => {
     setShowLogin(true);

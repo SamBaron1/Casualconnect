@@ -32,6 +32,15 @@ const User = sequelize.define('User', {
   desiredJob: {
     type: DataTypes.STRING,
   },
+  whatsappNumber: {
+    type: DataTypes.STRING,
+    allowNull: false, // Ensure this field cannot be null
+    validate: {
+      notNull: {
+        msg: 'WhatsApp Number is required.', // Error message when null
+      },
+    },
+  },
   location: {
     type: DataTypes.STRING,
   },

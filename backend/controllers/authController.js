@@ -11,7 +11,7 @@ let resetTokens = {}; // Store reset tokens temporarily (In production, store in
 
 // Signup logic
 exports.signup = async (req, res) => {
-  const { name, email, password, role, companyName, position, companySize, desiredJob, location } = req.body;
+  const { name, email, password, role, companyName, whatsappNumber, desiredJob, location } = req.body;
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,8 +48,7 @@ exports.signup = async (req, res) => {
       password: hashedPassword,
       role,
       companyName: role === 'employer' ? companyName : null,
-      position: role === 'employer' ? position : null,
-      companySize: role === 'employer' ? companySize : null,
+      whatsappNumber: role === 'employer' ? whatsappNumber : null,
       desiredJob: role === 'jobseeker' ? desiredJob : null,
       location
     });

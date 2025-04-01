@@ -1,73 +1,50 @@
-/* Modal overlay */
+/* General Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it's on top of other content */
+  z-index: 1000;
 }
 
-/* Modal content */
 .modal-content {
-  background: #fff;
-  padding: 8px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+  background-color: #fff;
+  padding: 1.5rem; /* Reduced padding */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
+  max-width: 500px;
+  max-height: 90vh; /* Limit height to 90% of viewport height */
+  overflow-y: auto; /* Make the content scrollable */
   position: relative;
-  z-index: 1001; /* Ensure it's on top of the overlay */
 }
 
-/* Close button */
 .close-button {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 1rem;
+  right: 1rem;
   background: none;
   border: none;
-  font-size: 10px;
+  font-size: 1.5rem;
   cursor: pointer;
   color: #333;
 }
 
-.close-button:hover {
-  color: #0073e6;
+.login-signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Reduced gap between divisions */
 }
 
-/* Rest of the form styles (unchanged) */
 .login-signup-form h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #333;
   text-align: center;
-}
-
-.login-signup-form label {
-  display: block;
-  font-size: 10px;
-  color: #555;
-  margin-bottom: 4px;
-}
-
-.login-signup-form input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 10px;
-  margin-bottom: 6px;
-  transition: border-color 0.3s ease;
-}
-
-.login-signup-form input:focus {
-  border-color: #0073e6;
-  outline: none;
+  margin-bottom: 1rem; /* Reduced margin */
+  color: #333;
 }
 
 .login-signup-form .radio-group {
@@ -89,77 +66,92 @@
   margin: 0;
 }
 
-.login-signup-form button[type="submit"] {
-  width: 100%;
-  padding: 8px;
-  background-color: #0073e6;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+
+input[type="radio"] {
+  accent-color: #007bff;
 }
 
-.login-signup-form button[type="submit"]:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.login-signup-form button[type="submit"]:hover:not(:disabled) {
-  background-color: #005bb5;
-}
-
-.login-signup-form button[type="button"] {
-  width: 100%;
-  padding: 8px;
-  background-color: #f0f0f0;
-  color: #333;
-  border: none;
-  border-radius: 8px;
-  font-size: 10px;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.login-signup-form button[type="button"]:hover {
-  background-color: #ddd;
-}
-
-.login-signup-form .error {
-  color: #ff4d4d;
-  font-size: 12px;
-  margin-top: -10px;
-  margin-bottom: 10px;
-}
-
-/* Password toggle button */
-.password-toggle {
+form {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 0.75rem; /* Reduced gap */
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; /* Reduced gap */
+}
+
+form label {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+form input {
+  padding: 0.5rem; /* Reduced padding */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+}
+
+form input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.password-toggle {
+  position: relative;
 }
 
 .password-toggle button {
-  padding: 8px 10px;
-  background-color: #f0f0f0;
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
   border: none;
-  border-radius: 6px;
-  font-size: 10px;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.password-toggle button:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem; /* Reduced padding */
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.password-toggle button:hover {
-  background-color: #ddd;
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+button[type="submit"]:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
   .modal-content {
     width: 90%;
-    padding: 1.5rem;
+    padding: 1rem; /* Reduced padding */
   }
 
   .radio-group {
@@ -168,21 +160,21 @@
   }
 
   form input {
-    padding: 0.5rem;
+    padding: 0.5rem; /* Reduced padding */
   }
 
   button[type="submit"] {
-    padding: 0.5rem;
+    padding: 0.5rem; /* Reduced padding */
   }
 }
 
 @media (max-width: 480px) {
   .modal-content {
-    padding: 1rem;
+    padding: 0.75rem; /* Reduced padding */
   }
 
   .login-signup-form h2 {
-    font-size: 1.5rem;
+    font-size: 1.25rem; /* Reduced font size */
   }
 
   .radio-group label {

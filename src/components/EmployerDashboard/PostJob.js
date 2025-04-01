@@ -23,9 +23,31 @@ function PostJob({ onClose }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    // Handle salaryRange specifically
+    if (name === 'salaryRange') {
+      // Split the range value into min and max
+      const range = value.split("-");
+      if (range.length === 2) {
+        const [minSalary, maxSalary] = range.map(Number);
+  
+        // Check if values are valid numbers
+        if (!isNaN(minSalary) && !isNaN(maxSalary)) {
+          setJob((prevJob) => ({
+            ...prevJob,
+            minSalary, // Save minimum salary
+            maxSalary, // Save maximum salary
+            salaryRange: value, // Save the input as a string
+          }));
+          return;
+        }
+      }
+    }
+  
+    // Default behavior for other fields
     setJob((prevJob) => ({
       ...prevJob,
-      [name]: name === 'jobType' ? value : capitalize(value) // Avoid capitalizing jobType
+      [name]: name === 'jobType' ? value : capitalize(value), // Avoid capitalizing jobType
     }));
   };
 
@@ -91,12 +113,13 @@ function PostJob({ onClose }) {
             />
           </label>
           <label>
-            Salary:
+            Salary Range:
             <input
-              type="number"
-              name="salary"
-              value={job.salary}
+              type="text"
+              name="salaryRange"
+              value={job.salaryRange}
               onChange={handleChange}
+              placeholder="e.g., 40000-50000"
             />
           </label>
           <label>

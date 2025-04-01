@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { Job, Application, User, Notification } = require('../models'); // Ensure Message and Notification are imported
+const { Job, Application, User, Notification, PushSubscription } = require('../models'); // Ensure Message and Notification are imported
 const { Op } = require('sequelize');
 const { sendNotification } = require("../config/socket");
+const webPush = require("web-push"); // Import web-push for push notifications
 console.log("sendNotification function:", sendNotification);
 
 
@@ -71,8 +72,8 @@ router.get('/:employerId/applications', async (req, res) => {
   try {
     const applications = await Application.findAll({
       include: [
-        { model: Job, where: { employer_id: employerId }, attributes: ['title', 'description'] },
-        { model: User, attributes: ['name'] },
+        { model: Job, where: { employer_id: employerId }, attributes: ['title'] },
+        { model: User, attributes: ['name', 'desiredJob', 'location']},
       ],
       where: {
         status: { [Op.or]: ['Accepted', 'Pending'] }  // Filter by multiple statuses
@@ -125,16 +126,14 @@ router.post('/:employerId/applications/:applicationId', async (req, res) => {
 
         Your application for the job "${job.title}" has been received.
 
-        Please respond with your updated CV at your earliest convenience to my email: "${employer.email}".
+         Please respond with your updated CV at your earliest convenience to my WhatsApp Number: "${employer.whatsappNumber}".
 
         Best regards,
         ${employer.name}
       `;
     } else if (status === 'Rejected') {
       notificationMessage = `
-        Dear ${jobseeker.name},
-
-        We regret to inform you that your application for the job "${job.title}" has been rejected.
+        Dear ${jobseeker.name}, We regret to inform you that your application for the job "${job.title}" has been rejected.
 
         Thank you for your interest in our company.
 
@@ -161,13 +160,29 @@ router.post('/:employerId/applications/:applicationId', async (req, res) => {
     });
 
     // Emit notification to the jobseeker in real-time
-    console.log(typeof sendNotification); // Should print 'function'
-    sendNotification(jobseeker.id, {
+    await sendNotification(jobseeker.id, {
       title: "Job Application Update",
       message: notificationMessage,
       jobId: job.id,
-      createdAt: new Date().toISOString(),
     });
+
+    // Fetch jobseeker's push subscription from the database
+    const subscription = await PushSubscription.findOne({ where: { userId: jobseeker.id } });
+    if (subscription) {
+      const payload = JSON.stringify({
+        title: "Job Application Update",
+        message: notificationMessage,
+      });
+
+      // Send push notification using web-push
+      await webPush.sendNotification({
+        endpoint: subscription.endpoint,
+        keys: {
+          p256dh: subscription.publicKey,
+          auth: subscription.authKey,
+        },
+      }, payload).catch((error) => console.error("Error sending push notification:", error));
+    }
 
     res.json({
       id: application.id,

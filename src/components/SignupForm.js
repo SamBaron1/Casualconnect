@@ -9,6 +9,7 @@ const SignupForm = ({ setShowSignUp }) => {
     name: "",
     email: "",
     companyName: "",
+    whatsappNumber:"",
     location: "",
     desiredJob: "",
     password: "",
@@ -150,28 +151,37 @@ const SignupForm = ({ setShowSignUp }) => {
               {errors.password && <p className="error">{errors.password}</p>}
             </div>
             {userType === "employer" && (
-              <>
-                <div>
-                  <label>Company Name:</label>
-                  <input
-                    type="text"
-                    name="companyName"
-                    value={formData.companyName}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div>
-                  <label>Location:</label>
-                  <input
-                    type="text"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                  />
-                </div>
-
-              </>
-            )}
+                  <>
+                    <div>
+                      <label>WhatsApp Number:</label>
+                      <input
+                        type="text"
+                        name="whatsappNumber"
+                        value={formData.whatsappNumber}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label>Company Name:</label>
+                      <input
+                        type="text"
+                        name="companyName"
+                        value={formData.companyName}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div>
+                      <label>Location:</label>
+                      <input
+                        type="text"
+                        name="location"
+                        value={formData.location}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </>
+                )}
             {userType === "jobseeker" && (
               <>
                 <div>

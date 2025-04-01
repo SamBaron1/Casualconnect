@@ -10,7 +10,7 @@ const JobPostings = () => {
   const [liveJob, setLiveJob] = useState(null);
   const [searchTerm, setSearchTerm] = useState(""); // Store user search input
 
-  // 🔹 Pagination State
+  //  Pagination State
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 5; // Change this number to control jobs per page
 
@@ -59,7 +59,7 @@ const JobPostings = () => {
       .join(" ");
   };
 
-  // 🔹 Ensure `jobs` is an array before filtering
+  //  Ensure `jobs` is an array before filtering
   const filteredJobs = Array.isArray(jobs)
     ? jobs.filter((job) =>
         [job.title, job.location, job.jobType]
@@ -67,12 +67,12 @@ const JobPostings = () => {
       )
     : [];
 
-  // 🔹 Pagination Logic: Slice Jobs to Show Per Page
+  //  Pagination Logic: Slice Jobs to Show Per Page
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
   const paginatedJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
 
-  // 🔹 Pagination Handlers
+  //  Pagination Handlers
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -85,7 +85,7 @@ const JobPostings = () => {
     <section className="job-listings-container">
       <h2>Job Feeds</h2>
 
-      {/* 🔹 Search Bar */}
+      {/*Search Bar */}
       <div className="search-container">
         <input
           type="text"
@@ -136,7 +136,7 @@ const JobPostings = () => {
         </div>
       )}
 
-      {/* 🔹 Pagination Controls */}
+      {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="pagination">
           <button disabled={currentPage === 1} onClick={handlePrevPage}>

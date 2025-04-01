@@ -6,7 +6,7 @@ const { sequelize } = require("./models");
 const indexRouter = require("./routes/index");
 const { initializeSocket, sendNotification } = require("./config/socket");
 const reviewRoutes = require("./routes/reviewRoutes");
-
+const vapidRouter = require("./routes/vapidRouter");
 
 
 
@@ -36,6 +36,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/reviews", reviewRoutes);
+app.use("/api", vapidRouter);
 
 
 

@@ -23,14 +23,18 @@ const EmployerNotifications = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const employerId = localStorage.getItem("userId");
-        if (!employerId) {
-          console.error("Employer ID not found in localStorage");
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+          console.error("User ID not found in localStorage");
           return;
         }
-
-        const response = await axios.get(`${API_BASE_URL}/notifications/${employerId}`);
-        setNotifications(response.data);
+    
+        const response = await axios.get(`${API_BASE_URL}/notifications/${userId}`);
+        const updatedNotifications = response.data.map((n) => ({
+          ...n,
+          isNew: false, // Mark all fetched notifications as not new
+        }));
+        setNotifications(updatedNotifications);
       } catch (error) {
         console.error("Error fetching notifications:", error);
       }
@@ -55,6 +59,16 @@ const EmployerNotifications = () => {
       };
     }
   }, []); // Empty dependency array ensures this runs only once
+    const markNotificationsAsViewed = () => {
+      setNotifications((prev) =>
+        prev.map((n) => ({ ...n, isNew: false }))
+      );
+    };
+    
+    // Example: Call this when the notification list is opened
+    useEffect(() => {
+      markNotificationsAsViewed();
+    }, []);
 
   const handleDeleteNotification = async (notificationId) => {
     try {
@@ -90,7 +104,10 @@ const EmployerNotifications = () => {
       </button>
       {notifications.length > 0 ? (
         notifications.map((note, index) => (
-          <div key={index} className="notification-item">
+          <div
+            key={index}
+            className={`notification-item ${note.isNew ? "new" : ""}`} // Apply "new" style
+          >
             <p>
               <FontAwesomeIcon icon={faEnvelope} className="icon" /> {note.message}
             </p>

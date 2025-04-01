@@ -7,7 +7,8 @@ const Notification = require('./Notification');
 const Application = require('./Application');
 const SavedJob = require('./SavedJob');
 const Review = require('./Review'); // Import the Review model
-
+const PushSubscription = require('./pushSubscription');
+const Newsletter = require('./newsletterSubscriber');
 
 
 // Set up associations
@@ -30,6 +31,8 @@ SavedJob.belongsTo(Job, { foreignKey: 'job_id' });
 User.hasMany(SavedJob, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 SavedJob.belongsTo(User, { foreignKey: 'user_id' });
 
+Newsletter.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
+User.hasMany(Newsletter, { foreignKey: "userId", onDelete: "CASCADE" });
 
 // Associate Review with User (jobseekerId)
 User.hasMany(Review, { foreignKey: 'jobseekerId', onDelete: 'CASCADE' });
@@ -41,6 +44,8 @@ module.exports = {
   Job,
   Notification,
   Application,
+  Newsletter,
   SavedJob,
   Review,
+  PushSubscription,
 };

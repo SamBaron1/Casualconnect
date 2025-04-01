@@ -1,55 +1,94 @@
-/* General Dashboard Styling */
+/* General Styles */
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-  background-color: #f8f9fa ;
-  font-family: 'Arial', sans-serif;
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Top Section */
+/* Top Section - Flex Layout for Profile and Notifications */
 .top-section {
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  flex-direction: column; /* Default to column for small screens */
+  gap: 1rem;
 }
 
-/* Middle Section */
+/* Flex Layout for Large Screens */
+@media (min-width: 768px) {
+  .top-section {
+    flex-direction: row; /* Switch to row for large screens */
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+/* Middle Section - Flex Layout with Wrapping */
 .middle-section {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column; /* Default to column for small screens */
+  gap: 1rem;
+}
+
+/* Flex Layout for Mid-Large Screens */
+@media (min-width: 768px) {
+  .middle-section {
+    flex-direction: row; /* Switch to row for mid-large screens */
+    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: space-between;
+  }
+
+  .middle-section .grid-item {
+    flex: 1 1 calc(50% - 1rem); /* Two columns with gap */
+    margin: 0.5rem;
+  }
+}
+
+/* Flex Layout for Large Screens */
+@media (min-width: 1024px) {
+  .middle-section .grid-item {
+    flex: 1 1 calc(33.33% - 1rem); /* Three columns with gap */
+  }
+}
+
+/* Grid Item Styling */
+.grid-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* CV Upgrade Section */
 .cv-upgrade-section {
   text-align: center;
-  padding: 40px 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-top: 1rem;
 }
 
 .cv-upgrade-section h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
   color: #333;
 }
 
 .upgrade-btn {
-  background-color: #1e3c72;
+  background-color: #007bff;
   color: #fff;
+  padding: 0.75rem 1.5rem;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
 .upgrade-btn:hover {
-  background-color: #37ccf1;
+  background-color: #0056b3;
 }
 
 /* Modal Backdrop */
@@ -68,45 +107,43 @@
 
 .modal {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 500px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Footer */
 .dashboard-footer {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  justify-content: space-around;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #ddd;
+  margin-top: 1rem;
 }
 
-.btn {
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  padding: 10px 15px;
-  border-radius: 5px;
+.dashboard-footer .btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
   cursor: pointer;
-  font-size: 14px;
   transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-  background-color: #e9ecef;
+.dashboard-footer .btn:hover {
+  background-color: #0056b3;
 }
 
-.btn.logout {
+.dashboard-footer .logout-btn {
   background-color: #dc3545;
-  color: #fff;
-  border: none;
 }
 
-.btn.logout:hover {
+.dashboard-footer .logout-btn:hover {
   background-color: #c82333;
 }
 
@@ -126,100 +163,64 @@
 
 .help-modal {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.help-modal .close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #333;
 }
 
 .help-modal h3 {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
   color: #333;
 }
 
 .help-modal p {
-  color: #666;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  color: #666;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.close-btn:hover {
-  color: #333;
+  color: #555;
 }
 
 /* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 10px;
-  }
-
+@media (max-width: 767px) {
   .top-section {
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: column; /* Ensure column layout for small screens */
   }
 
   .middle-section {
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: column; /* Ensure column layout for small screens */
   }
 
-  .cv-upgrade-section {
-    padding: 20px 10px;
+  .middle-section .grid-item {
+    margin: 0; /* Remove margin for small screens */
   }
 
   .cv-upgrade-section h1 {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .upgrade-btn {
-    font-size: 14px;
-    padding: 8px 16px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
   }
 
   .dashboard-footer {
     flex-direction: column;
-    gap: 10px;
-    align-items: flex-end;
+    gap: 0.5rem;
   }
 
-  .btn {
+  .dashboard-footer .btn {
     width: 100%;
-    text-align: center;
-  }
-
-  .modal {
-    width: 95%;
-    padding: 15px;
-  }
-
-  .help-modal {
-    width: 95%;
-    padding: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cv-upgrade-section h1 {
-    font-size: 18px;
-  }
-
-  .upgrade-btn {
-    font-size: 12px;
-    padding: 6px 12px;
-  }
-
-  .btn {
-    font-size: 12px;
-    padding: 8px 12px;
+    padding: 0.5rem;
   }
 }
