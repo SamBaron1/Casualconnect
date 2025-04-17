@@ -122,14 +122,7 @@ router.post('/:employerId/applications/:applicationId', async (req, res) => {
     let notificationMessage;
     if (status === 'Accepted') {
       notificationMessage = `
-        Dear ${jobseeker.name},
-
-        Your application for the job "${job.title}" has been received.
-
-         Please respond with your updated CV at your earliest convenience to my WhatsApp Number: "${employer.whatsappNumber}".
-
-        Best regards,
-        ${employer.name}
+        Dear ${jobseeker.name}, Your application for the job "${job.title}" has been received. Please respond with your updated CV at your earliest convenience to my WhatsApp Number: "${employer.whatsappNumber}". Best regards, ${employer.name}
       `;
     } else if (status === 'Rejected') {
       notificationMessage = `

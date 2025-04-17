@@ -11,6 +11,7 @@ webPush.setVapidDetails(
   process.env.VAPID_PRIVATE_KEY
 );
 
+
 const initializeSocket = (server) => {
   const corsOrigins = process.env.CORS_ORIGINS
     ? process.env.CORS_ORIGINS.split(",") // Split by commas to create an array
@@ -23,6 +24,7 @@ const initializeSocket = (server) => {
       credentials: true,
     },
   });
+
 
 
   io.on("connection", (socket) => {

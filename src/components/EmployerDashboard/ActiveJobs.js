@@ -68,7 +68,7 @@ function ActiveJobs() {
             <td data-label="Applications">{job.applicationCount}</td>
             <td data-label="Status">{new Date(job.expiresAt) > new Date() ? "Active" : "Expired"}</td>
             <td data-label="Actions">
-            <button className="btn" onClick={() => handleDeleteJob(job.id)}>Delete</button>
+            <button className="btn-delete" onClick={() => handleDeleteJob(job.id)}>Delete</button>
             </td>
           </tr>
         ))

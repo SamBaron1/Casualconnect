@@ -27,17 +27,23 @@ exports.signup = async (req, res) => {
     if (!validateEmail(email)) {
       return res.status(400).json({ message: 'Invalid email address.' });
     }
-
+  
     if (!validatePassword(password)) {
-      return res.status(400).json({ message: 'Password must be at least 8 characters long, include 1 uppercase letter, 1 lowercase letter, and 1 number.' });
+      return res.status(400).json({
+        message: 'Password must be at least 8 characters long, include 1 uppercase letter, 1 lowercase letter, and 1 number.'
+      });
     }
-
+  
+    // Conditional validation for WhatsApp number
+    if (role === 'employer' && (!whatsappNumber || whatsappNumber.trim() === "")) {
+      return res.status(400).json({ message: 'WhatsApp Number is required for employers.' });
+    }
+  
     // Check if email already exists
     const user = await User.findByEmail(email);
     if (user) {
       return res.status(400).json({ message: 'Email already registered' });
     }
-
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 

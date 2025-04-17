@@ -26,7 +26,8 @@
     "sequelize": "^6.37.5",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
-    "web-push": "^3.6.7"
+    "web-push": "^3.6.7",
+    "ws": "^8.18.1"
   },
   "type": "commonjs",
   "description": ""

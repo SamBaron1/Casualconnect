@@ -72,7 +72,7 @@ function JobApplications() {
       <div className="filter-section">
         <input
           type="text"
-          placeholder="🔍Applicant Name, Desired Job, or Location"
+          placeholder="Filter by Name, DesiredJob, Location..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="search-bar"
@@ -101,7 +101,7 @@ function JobApplications() {
                 </div>
                 <div className="application-actions">
                   <button
-                    className="btn"
+                    className="btn accept"
                     onClick={() => handleUpdateStatus(application.id, "Accepted")}
                   >
                     Accept

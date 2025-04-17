@@ -6,6 +6,7 @@
   padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
+  background: linear-gradient(270deg, #1e3c72, #ced5e0); 
 }
 
 /* Top Section - Flex Layout for Profile and Notifications */
@@ -33,7 +34,7 @@
 
 .active-jobs-section,
 .job-applications-section {
-  background-color: #fff;
+  background: linear-gradient(120deg, #1e3c72, #ced5e0); 
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
@@ -45,13 +46,13 @@
   display: flex;
   justify-content: space-around;
   padding: 1rem;
-  background-color: #f8f9fa;
+  background: linear-gradient(270deg, #1e3c72, #ced5e0); 
   border-top: 1px solid #ddd;
   margin-top: 1rem;
 }
 
 .employer-middle-footer .footer-btn {
-  background-color: #007bff;
+  background-color: #ffb400;
   color: #fff;
   padding: 0.5rem 1rem;
   border: none;
@@ -99,7 +100,7 @@
 /* Bottom Section */
 .employer-bottom-section {
   padding: 1rem;
-  background-color: #f8f9fa;
+
   border-radius: 8px;
   margin-top: 1rem;
 }

@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
     }
 
     const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + 7);
+    expiresAt.setDate(expiresAt.getDate() + 20);
 
     console.log('Received job data:', req.body);
     const job = await Job.create({

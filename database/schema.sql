@@ -1,122 +1,162 @@
-CREATE TABLE Users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  role ENUM('jobseeker', 'employer') NOT NULL,
-  companyName VARCHAR(255),       -- Optional for job seekers
-  position VARCHAR(255),          -- Optional for job seekers
-  companySize VARCHAR(255),       -- Optional for job seekers
-  desiredJob VARCHAR(255),        -- Optional for employers
-  location VARCHAR(255),          -- New column for both employers and job seekers
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+CREATE DATABASE casualconnect;
 
-CREATE TABLE Jobs (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  description TEXT NOT NULL,
-  location VARCHAR(255),
-  salary VARCHAR(255),
-  jobType ENUM('Full-Time', 'Part-Time', 'Contract', 'Freelance'),
-  requirements TEXT,
-  benefits TEXT,
-  employer_id INT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (employer_id) REFERENCES Users(id) ON DELETE CASCADE
-);
-
-CREATE TABLE Applications (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  job_id INT NOT NULL,
-  jobseeker_id INT NOT NULL,
-  status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (job_id) REFERENCES Jobs(id) ON DELETE CASCADE,
-  FOREIGN KEY (jobseeker_id) REFERENCES Users(id) ON DELETE CASCADE
-);
-
-
-CREATE TABLE CVs (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNIQUE,
-    file_path VARCHAR(255) NOT NULL,
-    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('jobseeker', 'employer', 'admin') NOT NULL,
+    companyName VARCHAR(255),
+    location VARCHAR(255),
+    desiredJob VARCHAR(255) DEFAULT NULL,
+    whatsappNumber VARCHAR(255) DEFAULT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    CHECK (
+        (role = 'jobseeker' AND desiredJob IS NOT NULL OR role != 'jobseeker' AND desiredJob IS NULL) AND
+        (role = 'employer' AND whatsappNumber IS NOT NULL OR role != 'employer' AND whatsappNumber IS NULL)
+    )
 );
 
-CREATE TABLE Newsletters (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-CREATE TABLE JobPosts (
+CREATE TABLE jobs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     location VARCHAR(255) NOT NULL,
-    pay_range VARCHAR(50) NOT NULL,
-    requirements TEXT NOT NULL,
-    employer_id INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (employer_id) REFERENCES Users(id) ON DELETE CASCADE
+    salary VARCHAR(255),
+    jobType ENUM('Full-Time', 'Part-Time', 'Contract', 'Freelance') NOT NULL,
+    requirements TEXT,
+    benefits TEXT,
+    employer_id INT NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    expiresAt DATETIME,
+    applicationCount INT DEFAULT 0,
+    
+    CONSTRAINT fk_employer FOREIGN KEY (employer_id) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
-CREATE TABLE Notifications (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NOT NULL,
-  message TEXT NOT NULL,
-  is_read BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
-);
-
-
-CREATE TABLE Reviews (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    employer_id INT NOT NULL,  -- Foreign Key referencing Users (the employer being reviewed)
-    job_seeker_id INT NOT NULL,  -- Foreign Key referencing Users (the job seeker who wrote the review)
-    rating INT CHECK (rating >= 1 AND rating <= 5),  -- Rating between 1 and 5
-    comment TEXT,  -- Optional comment about the employer
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp for when the review was created
-    FOREIGN KEY (employer_id) REFERENCES Users(id) ON DELETE CASCADE,  -- Delete reviews if the employer is deleted
-    FOREIGN KEY (job_seeker_id) REFERENCES Users(id) ON DELETE CASCADE  -- Delete reviews if the job seeker is deleted
-);
-
-CREATE TABLE Messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    sender_id INT NOT NULL,  -- Foreign Key referencing Users (the sender of the message)
-    receiver_id INT NOT NULL,  -- Foreign Key referencing Users (the receiver of the message)
-    message TEXT NOT NULL,  -- The content of the message
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp for when the message was sent
-    FOREIGN KEY (sender_id) REFERENCES Users(id) ON DELETE CASCADE,  -- Delete messages if the sender is deleted
-    FOREIGN KEY (receiver_id) REFERENCES Users(id) ON DELETE CASCADE  -- Delete messages if the receiver is deleted
-);
-
-CREATE TABLE Settings (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNIQUE NOT NULL,  -- Foreign Key referencing Users (the user whose settings are stored)
-    setting_key VARCHAR(255) NOT NULL,  -- The key for the setting (e.g., 'email_notifications')
-    setting_value VARCHAR(255) NOT NULL,  -- The value for the setting (e.g., 'true' or 'false')
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp for when the setting was created
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Timestamp for when the setting was last updated
-    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE  -- Delete settings if the user is deleted
-);
-
-
-CREATE TABLE SavedJobs (
+CREATE TABLE applications (
     id INT AUTO_INCREMENT PRIMARY KEY,
     job_id INT NOT NULL,
     user_id INT NOT NULL,
-    saved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (job_id) REFERENCES Jobs(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+    employer_id INT NOT NULL,
+    status ENUM('Pending', 'Accepted', 'Rejected') DEFAULT 'Pending',
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_job FOREIGN KEY (job_id) REFERENCES jobs(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_employer FOREIGN KEY (employer_id) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
+
+
+CREATE TABLE savedjobs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    job_id INT NOT NULL,
+    user_id INT NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_saved_job FOREIGN KEY (job_id) REFERENCES jobs(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_saved_user FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE cvs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_cv_user FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE newsletters (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    userId INT,
+
+    CONSTRAINT fk_newsletter_user FOREIGN KEY (userId) REFERENCES users(id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    userId INT NOT NULL,
+    jobId INT,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_notification_user FOREIGN KEY (userId) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_notification_job FOREIGN KEY (jobId) REFERENCES jobs(id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    jobseekerId INT NOT NULL,
+    employerName VARCHAR(255) NOT NULL,
+    reviewText TEXT NOT NULL,
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_reviews_jobseeker FOREIGN KEY (jobseekerId) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
+CREATE TABLE pushsubscriptions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT NOT NULL,
+    endpoint TEXT NOT NULL,
+    publicKey VARCHAR(255) NOT NULL,
+    authKey VARCHAR(255) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_push_user FOREIGN KEY (userId) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    setting_key VARCHAR(255) NOT NULL,
+    setting_value VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_settings_user FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
 
 

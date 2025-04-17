@@ -26,6 +26,10 @@ const SignupForm = ({ setShowSignUp }) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  const validateName = (name) => {
+    const nameRegex = /^[A-Za-z]+$/; // Only allows letters
+    return nameRegex.test(name);
+  };
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -43,6 +47,10 @@ const SignupForm = ({ setShowSignUp }) => {
     setIsLoading(true);
 
     const newErrors = {};
+    if (!validateName(formData.name)) {
+      newErrors.name = "Username must contain letters only.";
+    }
+  
     if (!validateEmail(formData.email)) {
       newErrors.email = "Invalid email address.";
     }
@@ -67,6 +75,7 @@ const SignupForm = ({ setShowSignUp }) => {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to sign up.");
       }
+      
 
       const data = await response.json();
       alert(data.message);
